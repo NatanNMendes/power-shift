@@ -1,10 +1,15 @@
 {
-  "dependencies": {
-    "@tailwindcss/cli": "^4.0.8"
+  "name": "power-shift",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.0.8"
+    "tailwindcss": "^3.4.17"
   }
 }
