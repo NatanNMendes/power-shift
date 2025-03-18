@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/output.css" />
+    <script src="./js/scripts.js"></script>
+    <title>Eventos</title>
+  </head>
+  <body>
+    <nav class="bg-red-500 fixed top-0 left-0 w-full z-50">
+      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+          <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            <button
+              type="button"
+              class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              aria-controls="mobile-menu"
+              aria-expanded="false"
+            >
+              <span class="absolute -inset-0.5"></span>
+              <span class="sr-only">Open main menu</span>
+              <svg
+                class="block size-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+              <svg
+                class="hidden size-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
+          >
+            <div class="flex shrink-0 items-center">
+              <img
+                class="h-8 w-auto"
+                src="./images/logo.png"
+                alt="Power Swift Logo"
+              />
+            </div>
+            <div class="hidden sm:ml-6 sm:block">
+              <div class="flex space-x-4">
+                <a
+                  href="index.html"
+                  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-red-700 hover:text-white"
+                  >Home</a
+                >
+                <a
+                  href="#"
+                  class="rounded-md bg-red-900 px-3 py-2 text-sm font-medium text-white"
+                  aria-current="page"
+                  >Eventos</a
+                >
+                <a
+                  href="./team.html"
+                  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-red-700 hover:text-white"
+                  >Equipe</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sm:hidden hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pb-3 pt-2">
+          <a
+            href="./index.html"
+            class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+            aria-current="page"
+            >Home</a
+          >
+          <a
+            href="#"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Eventos</a
+          >
+          <a
+            href="./team.html"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Equipe</a
+          >
+        </div>
+      </div>
+    </nav>
+    <ul role="list" class="pt-20 px-6 divide-y divide-gray-100">
+      <li class="relative flex-col justify-between gap-x-6 py-5">
+        <div class="hero py-24" style="position: relative; overflow: hidden">
+          <div
+            class="absolute inset-0 bg-black opacity-40"
+            style="z-index: 1"
+          ></div>
+          <div
+            class="parallax-background"
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-image: url('https://images.pexels.com/photos/3972755/pexels-photo-3972755.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+              background-size: cover;
+              background-position: bottom 40% center;
+              background-attachment: scroll;
+              background-repeat: no-repeat;
+              z-index: 0;
+            "
+          ></div>
+        </div>
+        <div class="flex min-w-0 gap-x-4">
+          <p class="text-sm/6 font-semibold text-gray-900">Full Cycle</p>
+          <p class="mt-1 truncate text-xs/5 text-gray-500">Carros de luxo</p>
+        </div>
+
+        <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+          <p class="text-sm/6 text-gray-900">Lagoa Grande</p>
+          <p class="mt-1 text-xs/5 text-gray-500">01/04 às 08:00~12:00</p>
+        </div>
+      </li>
+      <li class="relative flex-col justify-between gap-x-6 py-5">
+        <div class="hero py-24" style="position: relative; overflow: hidden">
+          <div
+            class="absolute inset-0 bg-black opacity-40"
+            style="z-index: 1"
+          ></div>
+          <div
+            class="parallax-background"
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-image: url('https://meups.com.br/wp-content/uploads/2024/05/Need-for-Speed-Unbound-novo-carro-que-chegara-ao-titulo-com-pintura-roxa-e-detalhes-em-cromo.jpg');
+              background-size: cover;
+              background-position: bottom 40% center;
+              background-attachment: scroll;
+              background-repeat: no-repeat;
+              z-index: 0;
+            "
+          ></div>
+        </div>
+        <div class="min-w-0 flex-auto">
+          <p class="text-sm/6 font-semibold text-gray-900">Way to hell</p>
+          <p class="mt-1 truncate text-xs/5 text-gray-500">
+            Competição de carros tunados e drift
+          </p>
+        </div>
+
+        <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+          <p class="text-sm/6 text-gray-900">Aeroporto</p>
+          <p class="mt-1 text-xs/5 text-gray-500">04/05 às 08:00~12:00</p>
+        </div>
+      </li>
+      <li class="relative flex-col justify-between gap-x-6 py-5
+      lg:w-full lg:justify-items-center
+      ">
+        <div
+          class="hero py-24 lg:h-96 lg:w-1/2 justify-items-center"
+          style="position: relative; overflow: hidden"
+        >
+          <div
+            class="absolute inset-0 bg-black opacity-40"
+            style="z-index: 1"
+          ></div>
+          <div
+            class="parallax-background"
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-image: url('https://images.pexels.com/photos/27696628/pexels-photo-27696628/free-photo-of-veiculo-carro-transporte-interior-do-carro.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+              background-size: cover;
+              background-position: bottom 30% center;
+              background-attachment: scroll;
+              background-repeat: no-repeat;
+              z-index: 0;
+            "
+          ></div>
+        </div>
+        <div class="flex w-full min-w-0  gap-x-4">
+          <div class="min-w-0 flex-auto">
+            <p class="text-sm/6 font-semibold text-gray-900">
+              Fast and Furious
+            </p>
+            <p class="mt-1 truncate text-xs/5 text-gray-500">
+              Competição de drift
+            </p>
+          </div>
+          <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+            <p class="text-sm/6 text-gray-900">
+              Estacionamento Shopping Boulevard
+            </p>
+            <p class="mt-1 text-xs/5 text-gray-500">08/06 às 14:00~18:00</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </body>
+</html>
