@@ -8,7 +8,7 @@
     <title>Power Shift - Official</title>
     <link rel="icon" type="image/x-icon" href="./images/favicon_io/favicon.ico">
   </head>
-  <body>
+  <body class="bg-white" x-data="{ showModal: false }">
     <nav class="bg-red-500 fixed top-0 left-0 w-full z-50">
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
@@ -174,8 +174,8 @@
               <h2 class="text-2xl font-bold tracking-tight text-gray-900">Mais vendidos</h2>
           
               <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                <div class="group relative">
-                  <img src="https://fueltech.com.br/cdn/shop/products/FUELTECH-FT600-INJECAO-ELETRONICA-PROGRAMAVEL_2_2048x2048.jpg?v=1667503397" alt="Front of men&#039;s Basic Tee in black." class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80">
+                <div class="group relative cursor-pointer" @click="showModal = true">
+                  <img src="https://fueltech.com.br/cdn/shop/products/FUELTECH-FT600-INJECAO-ELETRONICA-PROGRAMAVEL_2_2048x2048.jpg?v=1667503397" alt="Front of men&#039;s Basic Tee in black." class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78">
                   <div class="mt-4 flex justify-between">
                     <div>
                       <h3 class="text-sm text-gray-700">
@@ -191,8 +191,9 @@
                     <p class="text-sm font-medium text-gray-900">R$ 13.190,00</p>
                   </div>
                 </div>
+
                 <div class="group relative">
-                  <img src="https://images.tcdn.com.br/img/img_prod/612077/cilindro_de_oxido_nitroso_10lbs_4_5kg_1802_1_20240129163957.jpg" alt="Front of men&#039;s Basic Tee in black." class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80">
+                  <img src="https://images.tcdn.com.br/img/img_prod/612077/cilindro_de_oxido_nitroso_10lbs_4_5kg_1802_1_20240129163957.jpg" alt="Front of men&#039;s Basic Tee in black." class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78">
                   <div class="mt-4 flex justify-between">
                     <div>
                       <h3 class="text-sm text-gray-700">
@@ -209,7 +210,7 @@
                   </div>
                 </div>
                 <div class="group relative">
-                  <img src="https://cf.shopee.com.br/file/7056bdd4bfee477ab33670a06e79f572" alt="Front of men&#039;s Basic Tee in black." class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80">
+                  <img src="https://cf.shopee.com.br/file/7056bdd4bfee477ab33670a06e79f572" alt="Front of men&#039;s Basic Tee in black." class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78">
                   <div class="mt-4 flex justify-between">
                     <div>
                       <h3 class="text-sm text-gray-700">
@@ -227,7 +228,7 @@
                 </div>
       
                 <div class="group relative">
-                  <img src="https://http2.mlstatic.com/D_NQ_NP_674153-MLB75909400960_042024-O.webp" alt="Front of men&#039;s Basic Tee in black." class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80">
+                  <img src="https://http2.mlstatic.com/D_NQ_NP_674153-MLB75909400960_042024-O.webp" alt="Front of men&#039;s Basic Tee in black." class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78">
                   <div class="mt-4 flex justify-between">
                     <div>
                       <h3 class="text-sm text-gray-700">
