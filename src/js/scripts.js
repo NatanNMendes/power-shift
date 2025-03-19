@@ -13,3 +13,11 @@ document.addEventListener("DOMContentLoaded", function () {
         closeIcon.classList.toggle("hidden", isExpanded);
     });
 });
+
+function openModal() {
+    document.getElementById('modal').classList.remove('hidden');
+}
+
+function closeModal() {
+    document.getElementById('modal').classList.add('hidden');
+}
