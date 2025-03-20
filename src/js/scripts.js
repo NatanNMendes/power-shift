@@ -14,7 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
+
 function openModal() {
+    console.log("openModal");
     document.getElementById('modal').classList.remove('hidden');
 }
 
