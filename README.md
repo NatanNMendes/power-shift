@@ -3,3 +3,7 @@ O Power-Swift é um sistema completo de gerenciamento e venda de autopeças, ofe
 
 ## código watch tailwind
 npx tailwindcss -i ./src/css/input.css -o ./src/css/output.css --watch
+
+### Coisas a adicionar
+tornar as opções no modal interativas
+Fazer os modais 
