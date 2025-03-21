@@ -115,6 +115,20 @@
       <!-- Teams -->
       <div class="mt-6">
         <form class="mt-4 border-t border-gray-200">
+          <div class="flex flex-col items-center border-t border-gray-200 px-4 py-6 text-center">
+            <h2 class="text-lg font-semibold text-white">Selecione o Preço</h2>
+            <span class="text-sm text-white mt-4">R$ 100,00 - R$ 50.000,00</span>
+            <input 
+                id="priceRange" 
+                type="range" 
+                min="100" 
+                max="50000" 
+                value="100" 
+                class="w-full h-2 mt-2 bg-white rounded-lg appearance-none cursor-pointer accent-blue-500"
+                oninput="updatePrice(this.value)"
+            >
+            <span id="priceValue" class="mt-2 text-lg font-medium text-white">R$ 100,00</span>
+          </div>
           <h3 class="sr-only">Categories</h3>
           <div class="border-t border-gray-200 px-4 py-6">
             <h3 class="-mx-2 -my-3 flow-root">
@@ -314,101 +328,6 @@
                     </div>
                   </div>
                   <label for="filter-mobile-category-4" class="min-w-0 flex-1 text-white">Pneu</label>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="border-t border-gray-200 px-4 py-6">
-            <h3 class="-mx-2 -my-3 flow-root">
-              <!-- Expand/collapse section button -->
-              <button type="button" class="flex w-full items-center justify-between rounded-lg bg-red-500 px-2 py-3 text-white hover:bg-red-700" aria-controls="filter-section-mobile-2" aria-expanded="false">
-                <span class="font-medium text-white">Size</span>
-                <span class="ml-6 flex items-center">
-                  <!-- Expand icon, show/hide based on section open state. -->
-                  <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                    <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
-                  </svg>
-                  <!-- Collapse icon, show/hide based on section open state. -->
-                  <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                    <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
-                  </svg>
-                </span>
-              </button>
-            </h3>
-            <!-- Filter section, show/hide based on section state. -->
-            <div class="pt-6" id="filter-section-mobile-2">
-              <div class="space-y-6">
-                <div class="flex gap-3">
-                  <div class="flex h-5 shrink-0 items-center">
-                    <div class="group grid size-4 grid-cols-1">
-                      <input id="filter-mobile-size-0" name="size[]" value="2l" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
-                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
-                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
-                    </div>
-                  </div>
-                  <label for="filter-mobile-size-0" class="min-w-0 flex-1 text-white">2L</label>
-                </div>
-                <div class="flex gap-3">
-                  <div class="flex h-5 shrink-0 items-center">
-                    <div class="group grid size-4 grid-cols-1">
-                      <input id="filter-mobile-size-1" name="size[]" value="6l" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
-                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
-                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
-                    </div>
-                  </div>
-                  <label for="filter-mobile-size-1" class="min-w-0 flex-1 text-white">6L</label>
-                </div>
-                <div class="flex gap-3">
-                  <div class="flex h-5 shrink-0 items-center">
-                    <div class="group grid size-4 grid-cols-1">
-                      <input id="filter-mobile-size-2" name="size[]" value="12l" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
-                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
-                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
-                    </div>
-                  </div>
-                  <label for="filter-mobile-size-2" class="min-w-0 flex-1 text-white">12L</label>
-                </div>
-                <div class="flex gap-3">
-                  <div class="flex h-5 shrink-0 items-center">
-                    <div class="group grid size-4 grid-cols-1">
-                      <input id="filter-mobile-size-3" name="size[]" value="18l" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
-                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
-                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
-                    </div>
-                  </div>
-                  <label for="filter-mobile-size-3" class="min-w-0 flex-1 text-white">18L</label>
-                </div>
-                <div class="flex gap-3">
-                  <div class="flex h-5 shrink-0 items-center">
-                    <div class="group grid size-4 grid-cols-1">
-                      <input id="filter-mobile-size-4" name="size[]" value="20l" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
-                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
-                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
-                    </div>
-                  </div>
-                  <label for="filter-mobile-size-4" class="min-w-0 flex-1 text-white">20L</label>
-                </div>
-                <div class="flex gap-3">
-                  <div class="flex h-5 shrink-0 items-center">
-                    <div class="group grid size-4 grid-cols-1">
-                      <input id="filter-mobile-size-5" name="size[]" value="40l" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
-                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
-                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
-                    </div>
-                  </div>
-                  <label for="filter-mobile-size-5" class="min-w-0 flex-1 text-white">40L</label>
                 </div>
               </div>
             </div>

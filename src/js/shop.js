@@ -50,5 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
         expandIcon.classList.toggle("hidden");
         collapseIcon.classList.toggle("hidden");
     });
-    
 });
+
+function updatePrice(value) {
+    let formattedValue = parseInt(value).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+    document.getElementById('priceValue').textContent = `R$ ${formattedValue}`;
+}
