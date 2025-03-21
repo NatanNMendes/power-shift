@@ -6,4 +6,4 @@ npx tailwindcss -i ./src/css/input.css -o ./src/css/output.css --watch
 
 ### Coisas a adicionar
 tornar as opções no modal interativas
-Fazer os modais 
+Fazer os modais interativos 
