@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/output.css" />
-    <script src="./js/scripts.js"></script>
+    <script src="./js/shop.js"></script>
     <title>Power Shift - Official</title>
     <link rel="icon" type="image/x-icon" href="./images/favicon_io/favicon.ico">
 </head>
@@ -119,16 +119,16 @@
           <div class="border-t border-gray-200 px-4 py-6">
             <h3 class="-mx-2 -my-3 flow-root">
               <!-- Expand/collapse section button -->
-              <button type="button" class="flex w-full items-center justify-between rounded-lg bg-red-500 px-2 py-3 text-white hover:bg-red-700" aria-controls="filter-section-mobile-0" aria-expanded="false">
-                <span class="font-medium text-white">Color</span>
+              <button type="button" id="toggleFilterProducer" class="flex w-full items-center justify-between rounded-lg bg-red-500 px-2 py-3 text-white hover:bg-red-700" aria-controls="filter-section-mobile-0" aria-expanded="false">
+                <span class="font-medium text-white">Fabricante</span>
                 <span class="ml-6 flex items-center">
                   <!-- Expand icon, show/hide based on section open state. -->
-                  <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                  <svg class="expand-icon-producer size-5 show" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                     <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
                   </svg>
                   <!-- Collapse icon, show/hide based on section open state. -->
-                  <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                    <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                  <svg class="collapse-icon-producer size-5 hidden" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
                   </svg>
                 </span>
               </button>
@@ -136,7 +136,7 @@
             <!-- Filter section, show/hide based on section state. -->
             <div class="pt-6" id="filter-section-mobile-0">
               <div class="space-y-6">
-                <div class="flex gap-3">
+                <div class="filterContentProducer flex gap-3 hidden">
                   <div class="flex h-5 shrink-0 items-center">
                     <div class="group grid size-4 grid-cols-1">
                       <input id="filter-mobile-color-0" name="color[]" value="white" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
@@ -146,9 +146,9 @@
                       </svg>
                     </div>
                   </div>
-                  <label for="filter-mobile-color-0" class="min-w-0 flex-1 text-white">White</label>
+                  <label for="filter-mobile-color-0" class="min-w-0 flex-1 text-white">FuelTech</label>
                 </div>
-                <div class="flex gap-3">
+                <div class="filterContentProducer flex gap-3 hidden">
                   <div class="flex h-5 shrink-0 items-center">
                     <div class="group grid size-4 grid-cols-1">
                       <input id="filter-mobile-color-1" name="color[]" value="beige" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
@@ -158,9 +158,9 @@
                       </svg>
                     </div>
                   </div>
-                  <label for="filter-mobile-color-1" class="min-w-0 flex-1 text-white">Beige</label>
+                  <label for="filter-mobile-color-1" class="min-w-0 flex-1 text-white">Nos</label>
                 </div>
-                <div class="flex gap-3">
+                <div class="filterContentProducer flex gap-3 hidden">
                   <div class="flex h-5 shrink-0 items-center">
                     <div class="group grid size-4 grid-cols-1">
                       <input id="filter-mobile-color-2" name="color[]" value="blue" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
@@ -170,9 +170,9 @@
                       </svg>
                     </div>
                   </div>
-                  <label for="filter-mobile-color-2" class="min-w-0 flex-1 text-white">Blue</label>
+                  <label for="filter-mobile-color-2" class="min-w-0 flex-1 text-white">Nox</label>
                 </div>
-                <div class="flex gap-3">
+                <div class="filterContentProducer flex gap-3 hidden">
                   <div class="flex h-5 shrink-0 items-center">
                     <div class="group grid size-4 grid-cols-1">
                       <input id="filter-mobile-color-3" name="color[]" value="brown" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
@@ -182,9 +182,9 @@
                       </svg>
                     </div>
                   </div>
-                  <label for="filter-mobile-color-3" class="min-w-0 flex-1 text-white">Brown</label>
+                  <label for="filter-mobile-color-3" class="min-w-0 flex-1 text-white">Enkei</label>
                 </div>
-                <div class="flex gap-3">
+                <div class="filterContentProducer flex gap-3 hidden">
                   <div class="flex h-5 shrink-0 items-center">
                     <div class="group grid size-4 grid-cols-1">
                       <input id="filter-mobile-color-4" name="color[]" value="green" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
@@ -194,9 +194,9 @@
                       </svg>
                     </div>
                   </div>
-                  <label for="filter-mobile-color-4" class="min-w-0 flex-1 text-white">Green</label>
+                  <label for="filter-mobile-color-4" class="min-w-0 flex-1 text-white">MOMO</label>
                 </div>
-                <div class="flex gap-3">
+                <div class="filterContentProducer flex gap-3 hidden">
                   <div class="flex h-5 shrink-0 items-center">
                     <div class="group grid size-4 grid-cols-1">
                       <input id="filter-mobile-color-5" name="color[]" value="purple" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
@@ -206,7 +206,31 @@
                       </svg>
                     </div>
                   </div>
-                  <label for="filter-mobile-color-5" class="min-w-0 flex-1 text-white">Purple</label>
+                  <label for="filter-mobile-color-5" class="min-w-0 flex-1 text-white">Falken</label>
+                </div>
+                <div class="filterContentProducer flex gap-3 hidden">
+                  <div class="flex h-5 shrink-0 items-center">
+                    <div class="group grid size-4 grid-cols-1">
+                      <input id="filter-mobile-color-5" name="color[]" value="purple" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="filter-mobile-color-5" class="min-w-0 flex-1 text-white">BBS</label>
+                </div>
+                <div class="filterContentProducer flex gap-3 hidden">
+                  <div class="flex h-5 shrink-0 items-center">
+                    <div class="group grid size-4 grid-cols-1">
+                      <input id="filter-mobile-color-5" name="color[]" value="purple" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="filter-mobile-color-5" class="min-w-0 flex-1 text-white">Borla</label>
                 </div>
               </div>
             </div>
@@ -214,15 +238,15 @@
           <div class="border-t border-gray-200 px-4 py-6">
             <h3 class="-mx-2 -my-3 flow-root">
               <!-- Expand/collapse section button -->
-              <button type="button" class="flex w-full items-center justify-between rounded-lg bg-red-500 px-2 py-3 text-white hover:bg-red-700" aria-controls="filter-section-mobile-1" aria-expanded="false">
-                <span class="font-medium text-white">Category</span>
+              <button  id="toggleFilterCategory" type="button" class="flex w-full items-center justify-between rounded-lg bg-red-500 px-2 py-3 text-white hover:bg-red-700" aria-controls="filter-section-mobile-1" aria-expanded="false">
+                <span class="font-medium text-white">Categoria</span>
                 <span class="ml-6 flex items-center">
                   <!-- Expand icon, show/hide based on section open state. -->
-                  <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                  <svg class="expand-icon-category show size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                     <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
                   </svg>
                   <!-- Collapse icon, show/hide based on section open state. -->
-                  <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                  <svg class="collapse-icon-category hidden size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                     <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
                   </svg>
                 </span>
@@ -231,7 +255,7 @@
             <!-- Filter section, show/hide based on section state. -->
             <div class="pt-6" id="filter-section-mobile-1">
               <div class="space-y-6">
-                <div class="flex gap-3">
+                <div class="filterContentCategory flex gap-3 hidden">
                   <div class="flex h-5 shrink-0 items-center">
                     <div class="group grid size-4 grid-cols-1">
                       <input id="filter-mobile-category-0" name="category[]" value="new-arrivals" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
@@ -241,9 +265,9 @@
                       </svg>
                     </div>
                   </div>
-                  <label for="filter-mobile-category-0" class="min-w-0 flex-1 text-white">New Arrivals</label>
+                  <label for="filter-mobile-category-0" class="min-w-0 flex-1 text-white">Injeção Eletrônica</label>
                 </div>
-                <div class="flex gap-3">
+                <div class="filterContentCategory flex gap-3 hidden">
                   <div class="flex h-5 shrink-0 items-center">
                     <div class="group grid size-4 grid-cols-1">
                       <input id="filter-mobile-category-1" name="category[]" value="sale" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
@@ -253,9 +277,9 @@
                       </svg>
                     </div>
                   </div>
-                  <label for="filter-mobile-category-1" class="min-w-0 flex-1 text-white">Sale</label>
+                  <label for="filter-mobile-category-1" class="min-w-0 flex-1 text-white">Escapamento</label>
                 </div>
-                <div class="flex gap-3">
+                <div class="filterContentCategory flex gap-3 hidden">
                   <div class="flex h-5 shrink-0 items-center">
                     <div class="group grid size-4 grid-cols-1">
                       <input id="filter-mobile-category-2" name="category[]" value="travel" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
@@ -265,9 +289,9 @@
                       </svg>
                     </div>
                   </div>
-                  <label for="filter-mobile-category-2" class="min-w-0 flex-1 text-white">Travel</label>
+                  <label for="filter-mobile-category-2" class="min-w-0 flex-1 text-white">Óxido Nitroso</label>
                 </div>
-                <div class="flex gap-3">
+                <div class="filterContentCategory flex gap-3 hidden">
                   <div class="flex h-5 shrink-0 items-center">
                     <div class="group grid size-4 grid-cols-1">
                       <input id="filter-mobile-category-3" name="category[]" value="organization" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
@@ -277,9 +301,9 @@
                       </svg>
                     </div>
                   </div>
-                  <label for="filter-mobile-category-3" class="min-w-0 flex-1 text-white">Organization</label>
+                  <label for="filter-mobile-category-3" class="min-w-0 flex-1 text-white">Jante</label>
                 </div>
-                <div class="flex gap-3">
+                <div class="filterContentCategory flex gap-3 hidden">
                   <div class="flex h-5 shrink-0 items-center">
                     <div class="group grid size-4 grid-cols-1">
                       <input id="filter-mobile-category-4" name="category[]" value="accessories" type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
@@ -289,7 +313,7 @@
                       </svg>
                     </div>
                   </div>
-                  <label for="filter-mobile-category-4" class="min-w-0 flex-1 text-white">Accessories</label>
+                  <label for="filter-mobile-category-4" class="min-w-0 flex-1 text-white">Pneu</label>
                 </div>
               </div>
             </div>
@@ -410,67 +434,99 @@
       <div class="bg-white">
         <div class="mx-auto max-w-2xl px-4 lg:max-w-7xl lg:px-8">
           <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-            <div class="group relative">
-              <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men's Basic Tee in black." class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80">
+            <div class="group relative cursor-pointer" onclick="openModal()">
+              <img
+                src="https://fueltech.com.br/cdn/shop/products/FUELTECH-FT600-INJECAO-ELETRONICA-PROGRAMAVEL_2_2048x2048.jpg?v=1667503397"
+                alt="Front of men&#039;s Basic Tee in black."
+                class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78"
+              />
               <div class="mt-4 flex justify-between">
                 <div>
                   <h3 class="text-sm text-gray-700">
                     <a href="#">
                       <span aria-hidden="true" class="absolute inset-0"></span>
-                      Basic Tee
+                      FT600 SFI - Injeção Eletrônica Programável
                     </a>
                   </h3>
-                  <p class="mt-1 text-sm text-gray-500">Black</p>
+                  <div
+                    class="inline-block bg-red-500 px-4 text-white text-xs font-semibold rounded-full uppercase tracking-wide"
+                  >
+                    <span>FUELTECH</span>
+                  </div>
                 </div>
-                <p class="text-sm font-medium text-gray-900">$35</p>
+                <p class="text-sm font-medium text-gray-900">R$ 13.190,00</p>
               </div>
             </div>
       
-            <div class="group relative">
-              <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men's Basic Tee in black." class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80">
+            <div class="group relative cursor-pointer" onclick="openModal()">
+              <img
+                src="https://images.tcdn.com.br/img/img_prod/612077/cilindro_de_oxido_nitroso_10lbs_4_5kg_1802_1_20240129163957.jpg"
+                alt="Front of men&#039;s Basic Tee in black."
+                class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78"
+              />
               <div class="mt-4 flex justify-between">
                 <div>
                   <h3 class="text-sm text-gray-700">
                     <a href="#">
                       <span aria-hidden="true" class="absolute inset-0"></span>
-                      Basic Tee
+                      Cilindro de Oxido Nitroso 10lbs (4,5kg)
                     </a>
                   </h3>
-                  <p class="mt-1 text-sm text-gray-500">Black</p>
+                  <div
+                    class="inline-block bg-blue-500 px-4 text-white text-xs font-semibold rounded-full uppercase tracking-wide"
+                  >
+                    <span>NOS</span>
+                  </div>
                 </div>
-                <p class="text-sm font-medium text-gray-900">$35</p>
+                <p class="text-sm font-medium text-gray-900">R$ 5.331,35</p>
               </div>
             </div>
 
-            <div class="group relative">
-              <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men's Basic Tee in black." class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80">
+            <div class="group relative cursor-pointer" onclick="openModal()">
+              <img
+                src="https://cf.shopee.com.br/file/7056bdd4bfee477ab33670a06e79f572"
+                alt="Front of men&#039;s Basic Tee in black."
+                class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78"
+              />
               <div class="mt-4 flex justify-between">
                 <div>
                   <h3 class="text-sm text-gray-700">
                     <a href="#">
                       <span aria-hidden="true" class="absolute inset-0"></span>
-                      Basic Tee
+                      Ponteira Esportiva Dupla Reta <br />(3,5 Polegadas)
                     </a>
                   </h3>
-                  <p class="mt-1 text-sm text-gray-500">Black</p>
+                  <div
+                    class="inline-block bg-gray-300 px-4 text-black text-xs font-semibold rounded-full uppercase tracking-wide"
+                  >
+                    <span>NOX</span>
+                  </div>
                 </div>
-                <p class="text-sm font-medium text-gray-900">$35</p>
+                <p class="text-sm font-medium text-gray-900">R$<br />499,00</p>
               </div>
             </div>
 
-            <div class="group relative">
-              <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men's Basic Tee in black." class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80">
+            <div class="group relative cursor-pointer" onclick="openModal()">
+              <img
+                src="https://http2.mlstatic.com/D_NQ_NP_674153-MLB75909400960_042024-O.webp"
+                alt="Front of men&#039;s Basic Tee in black."
+                class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78"
+              />
               <div class="mt-4 flex justify-between">
                 <div>
                   <h3 class="text-sm text-gray-700">
                     <a href="#">
                       <span aria-hidden="true" class="absolute inset-0"></span>
-                      Basic Tee
+                      4 Rodas KR F1 Modelo RPF1<br />(Aro 17)
                     </a>
                   </h3>
-                  <p class="mt-1 text-sm text-gray-500">Black</p>
+                  <div
+                    class="inline-block bg-yellow-400 px-4 text-black text-xs font-semibold rounded-full uppercase tracking-wide"
+                  >
+                    <span>ENKEI</span>
+                  </div>
                 </div>
-                <p class="text-sm font-medium text-gray-900">$35</p>
+                <p class="text-sm font-medium text-gray-900">R$<br />3.679,00</p>
               </div>
             </div>
           </div>
