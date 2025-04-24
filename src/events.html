@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/output.css" />
-    <script src="./js/scripts.js"></script>
+    <script src="./js/index.js"></script>
     <title>Eventos</title>
   </head>
   <body>
@@ -87,6 +87,66 @@
                 >
               </div>
             </div>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <div class="relative ml-3">
+                <button
+                  type="button"
+                  id="cartButton"
+                  class="relative rounded-full p-1 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-500"
+                >
+                  <span class="sr-only">Ver carrinho</span>
+                  <!-- Ícone do carrinho -->
+                  <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                  </svg>
+                  <!-- Contador de itens -->
+                  <span id="cartCount" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+                    0
+                  </span>
+                </button>
+      
+                <div id="cartDropdown" class="hidden absolute right-0 z-10 mt-2 w-80 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <div class="p-4 max-h-96 overflow-y-auto">
+                    <!-- Lista de Produtos -->
+                    <div class="flow-root">
+                      <ul role="list" class="-my-6 divide-y divide-gray-200">
+                        <!-- Item do Carrinho (exemplo) -->
+                        <li class="flex py-6">
+                          <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                            <img src="caminho/para/imagem.jpg" class="h-full w-full object-cover object-center">
+                          </div>
+                          <div class="ml-4 flex flex-1 flex-col">
+                            <div>
+                              <div class="flex justify-between text-base font-medium text-gray-900">
+                                <h3>Nome do Produto</h3>
+                                <p class="ml-4">R$ 99,90</p>
+                              </div>
+                            </div>
+                            <div class="flex flex-1 items-end justify-between text-sm">
+                              <p class="text-gray-500">Quantidade: 1</p>
+                              <button type="button" class="font-medium text-red-600 hover:text-red-500">
+                                Remover
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                        <!-- Mais itens... -->
+                      </ul>
+                    </div>
+      
+                    <!-- Total e Checkout -->
+                    <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                      <div class="flex justify-between text-base font-medium text-gray-900">
+                        <p>Total:</p>
+                        <p>R$ 99,90</p>
+                      </div>
+                      <p class="mt-0.5 text-sm text-gray-500">Frete calculado no checkout</p>
+                      <div class="mt-6">
+                        <a href="#" class="flex items-center justify-center rounded-md border border-transparent bg-red-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-red-700">
+                          Finalizar Compra
+                        </a>
+                      </div>
+                    </div>
           </div>
         </div>
       </div>
@@ -110,6 +170,8 @@
           >
         </div>
       </div>
+
+      
     </nav>
     
 <div class="bg-white">
@@ -175,5 +237,32 @@
     </div>
   </div>
 </div>
+
+<script>
+  // JavaScript para controle do dropdown
+  const cartButton = document.getElementById('cartButton');
+  const cartDropdown = document.getElementById('cartDropdown');
+
+  // Alternar visibilidade do dropdown
+  cartButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    cartDropdown.classList.toggle('hidden');
+  });
+
+  // Fechar dropdown ao clicar fora
+  document.addEventListener('click', (e) => {
+    if (!cartDropdown.contains(e.target) && !cartButton.contains(e.target)) {
+      cartDropdown.classList.add('hidden');
+    }
+  });
+
+  // Atualizar contador (exemplo)
+  function updateCartCount(count) {
+    document.getElementById('cartCount').textContent = count;
+  }
+
+  // Exemplo de uso:
+  // updateCartCount(3);
+</script>
   </body>
 </html>
