@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/output.css" />
+    <script src="./js/index.js"></script>
+    <script src="./js/shopping_cart.js"></script>
+    <title>Power Shift - Tela inicial</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./images/favicon_io/favicon.ico"
+    />
+  </head>
+  <body class="bg-white" x-data="{ showModal: false }">
+    <script>
+      window.addEventListener('cartUpdated', () => {
+        cart = JSON.parse(localStorage.getItem('cart')) || [];
+        updateCartUI();
+      });
+    </script>
+    <nav class="bg-red-500 fixed top-0 left-0 w-full z-50">
+      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+          <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            <button
+              type="button"
+              class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              aria-controls="mobile-menu"
+              aria-expanded="false"
+            >
+              <span class="absolute -inset-0.5"></span>
+              <span class="sr-only">Open main menu</span>
+              <svg
+                class="block size-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+              <svg
+                class="hidden size-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
+          >
+            <div class="flex shrink-0 items-center">
+              <img
+                class="h-8 w-auto"
+                src="./images/logo.png"
+                alt="Power Swift Logo"
+              />
+            </div>
+            <div class="hidden sm:ml-6 sm:block">
+              <div class="flex space-x-4">
+                <a
+                  href="#"
+                  class="rounded-md bg-red-900 px-3 py-2 text-sm font-medium text-white"
+                  >Home</a
+                >
+                <a
+                  href="./events.html"
+                  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-red-700 hover:text-white"
+                  aria-current="page"
+                  >Eventos</a
+                >
+                <a
+                  href="./team.html"
+                  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-red-700 hover:text-white"
+                  >Equipe</a
+                >
+                <a
+                  href="./shop.html"
+                  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-red-700 hover:text-white"
+                  >Shop</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Carrinho -->
+          <div class="flex items-center pr-2 sm:pr-0 relative">
+            <button onclick="toggleCart()" class="relative rounded-full p-1 text-gray-300 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+              <span id="cart-count" class="absolute -top-1 -right-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-900 text-xs text-white shadow">0</span>
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+              </svg>
+            </button>
+          </div>
+          <!-- Carrinho Dropdown -->
+          <div id="cart-dropdown" class="hidden absolute right-0 top-12 w-80 bg-white rounded-lg shadow-xl z-50">
+            <div class="p-4">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold">Seu Carrinho</h3>
+                <button onclick="toggleCart()" class="text-gray-500 hover:text-red-600">
+                  &times;
+                </button>
+              </div>
+
+              <div id="cart-items" class="space-y-4 max-h-96 overflow-y-auto">
+                
+              </div>
+              
+              <div class="border-t mt-4 pt-4">
+                <div class="flex justify-between items-center">
+                  <span class="font-bold">Total:</span>
+                  <span id="cart-total" class="font-bold text-red-600">R$ 0,00</span>
+                </div>
+                <a href="./checkout.html" class="mt-4 block w-full text-center bg-red-600 text-white py-2 rounded hover:bg-red-700">
+                  Finalizar Compra
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sm:hidden hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pb-3 pt-2">
+          <a
+            href="#"
+            class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+            aria-current="page"
+            >Home</a
+          >
+          <a
+            href="./events.html"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Eventos</a
+          >
+          <a
+            href="./team.html"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Equipe</a
+          >
+          <a
+            href="./shop.html"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Shop</a
+          >
+        </div>
+      </div>
+    </nav>
+    <div class="hero" style="position: relative; overflow: hidden">
+      <div
+        class="absolute inset-0 bg-black opacity-50"
+        style="z-index: 1"
+      ></div>
+      <div
+        class="parallax-background"
+        style="
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-image: url('https://images.pexels.com/photos/190574/pexels-photo-190574.jpeg');
+          background-size: cover;
+          background-position: center;
+          background-attachment: fixed;
+          background-repeat: no-repeat;
+          z-index: 0;
+        "
+      ></div>
+      <div class="relative isolate px-6 pt-14 lg:px-8" style="z-index: 2">
+        <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+          <div class="text-center">
+            <h1
+              class="text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl"
+            >
+              Performance em Cada Detalhe
+            </h1>
+            <p
+              class="mt-8 text-pretty text-lg font-medium text-gray-100 sm:text-xl/8"
+            >
+              Transforme o desempenho do seu carro com peças de qualidade e leve
+              sua experiência ao volante a um novo nível.
+            </p>
+            <div class="mt-10 flex items-center justify-center gap-x-6">
+              <a
+                href="#"
+                class="rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                >Compre Agora</a
+              >
+              <a href="#" class="text-sm/6 font-semibold text-white"
+                >Saiba mais <span aria-hidden="true">→</span></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white py-24 sm:py-32">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:text-center">
+          <p
+            class="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance"
+          >
+            Acelere Sua Performance
+          </p>
+          <p class="mt-6 text-lg/8 text-gray-600">
+            Tudo que você precisa para transformar seu carro. Descubra nossa
+            seleção exclusiva de autopeças de alta performance que elevam o
+            desempenho e a eficiência do seu veículo, tanto na pista quanto no
+            dia a dia.
+          </p>
+        </div>
+        <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
+          <dl
+            class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
+          >
+            <div class="relative pl-16">
+              <dt class="text-base/7 font-semibold text-gray-900">
+                <div
+                  class="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-red-600"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 text-white"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"
+                    />
+                  </svg>
+                </div>
+                Impulsione Seu Carro
+              </dt>
+              <dd class="mt-2 text-base/7 text-gray-600">
+                Nossas soluções inovadoras oferecem o equilíbrio perfeito entre
+                potência e controle. Potencialize o motor e experimente uma
+                condução mais responsiva, com a confiança que só nossas peças de
+                alta qualidade podem proporcionar.
+              </dd>
+            </div>
+            <div class="relative pl-16">
+              <dt class="text-base/7 font-semibold text-gray-900">
+                <div
+                  class="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-red-600"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 text-white"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 0 0 7.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 0 0 2.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 0 1 2.916.52 6.003 6.003 0 0 1-5.395 4.972m0 0a6.726 6.726 0 0 1-2.749 1.35m0 0a6.772 6.772 0 0 1-3.044 0"
+                    />
+                  </svg>
+                </div>
+                Peças Certificadas
+              </dt>
+              <dd class="mt-2 text-base/7 text-gray-600">
+                Trabalhamos com as melhores marcas para garantir produtos
+                rigorosamente testados e certificados. Cada componente é
+                selecionado para oferecer segurança e desempenho superior,
+                assegurando a confiabilidade que seu veículo merece.
+              </dd>
+            </div>
+            <div class="relative pl-16">
+              <dt class="text-base/7 font-semibold text-gray-900">
+                <div
+                  class="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-red-600"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 text-white"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                    />
+                  </svg>
+                </div>
+                Instalação Simplificada
+              </dt>
+              <dd class="mt-2 text-base/7 text-gray-600">
+                Projetadas para facilitar a manutenção e a montagem, nossas
+                autopeças garantem uma instalação prática e rápida. Conte com
+                suporte especializado e produtos que se encaixam perfeitamente
+                no seu carro, sem complicações.
+              </dd>
+            </div>
+            <div class="relative pl-16">
+              <dt class="text-base/7 font-semibold text-gray-900">
+                <div
+                  class="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-red-600"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 text-white"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"
+                    />
+                  </svg>
+                </div>
+                Tecnologia Avançada
+              </dt>
+              <dd class="mt-2 text-base/7 text-gray-600">
+                Unindo inovação e segurança, nossas peças incorporam o que há de
+                mais moderno em tecnologia automotiva. Acelere com a certeza de
+                estar investindo em componentes que proporcionam resultados
+                excepcionais e duradouros.
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white">
+      <div
+        class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8"
+      >
+        <h2 class="text-2xl font-bold tracking-tight text-gray-900">
+          Mais vendidos
+        </h2>
+
+        <div
+          class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
+        >
+          <div class="img_btn group relative cursor-pointer">
+            <img
+              src="https://fueltech.com.br/cdn/shop/products/FUELTECH-FT600-INJECAO-ELETRONICA-PROGRAMAVEL_2_2048x2048.jpg?v=1667503397"
+              alt="Front of men&#039;s Basic Tee in black."
+              class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78"
+            />
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-sm text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    FT600 SFI - Injeção Eletrônica Programável
+                  </a>
+                </h3>
+                <div
+                  class="inline-block bg-red-500 px-4 text-white text-xs font-semibold rounded-full uppercase tracking-wide"
+                >
+                  <span>FUELTECH</span>
+                </div>
+              </div>
+              <p class="text-sm font-medium text-gray-900">R$ 13.190,00</p>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div
+            class="modal relative z-10 hidden"
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              class="fixed inset-0 hidden bg-gray-500/75 transition-opacity md:block"
+              aria-hidden="true"
+            ></div>
+
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+              <div
+                class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4"
+              >
+                <div
+                  class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl"
+                >
+                  <div
+                    class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8"
+                  >
+                    <button
+                      type="button"
+                      class="close_modal_btn absolute right-4 top-20 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-20 md:right-6 md:top-10 lg:right-8 lg:top-8"
+                      
+                    >
+                      <span class="sr-only">Close</span>
+                      <svg
+                        class="size-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                        data-slot="icon"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18 18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+
+                    <div
+                      class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8"
+                    >
+                      <img
+                        src="https://fueltech.com.br/cdn/shop/products/FUELTECH-FT600-INJECAO-ELETRONICA-PROGRAMAVEL_2_2048x2048.jpg?v=1667503397"
+                        alt="Two each of gray, white, and black shirts arranged on table."
+                        class="aspect-[3/3] w-full rounded-lg bg-gray-100 object-cover sm:col-span-5 lg:col-span-5"
+                      />
+                      <div class="sm:col-span-8 lg:col-span-7">
+                        <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">
+                          FT600 SFI - Injeção Eletrônica Programável
+                        </h2>
+                        <div
+                          class="inline-block bg-red-500 px-4 text-white text-xs font-semibold rounded-full uppercase tracking-wide"
+                        >
+                          <span>FUELTECH</span>
+                        </div>
+                        <section
+                          aria-labelledby="information-heading"
+                          class="mt-2"
+                        >
+                          <h3 id="information-heading" class="sr-only">
+                            Product information
+                          </h3>
+                          <p class="text-2xl text-gray-900">R$ 13.190,00</p>
+                          <div class="mt-6">
+                            <h4 class="sr-only">Reviews</h4>
+                            <div class="flex items-center">
+                              <div class="flex items-center">
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-200"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                              </div>
+                              <p class="sr-only">3.9 out of 5 stars</p>
+                              <a
+                                href="#"
+                                class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                                >117 reviews</a
+                              >
+                            </div>
+                          </div>
+                        </section>
+
+                        <section
+                          aria-labelledby="options-heading"
+                          class="mt-10"
+                        >
+                          <h3 id="options-heading" class="sr-only">
+                            Product options
+                          </h3>
+
+                          <form>
+                            <!-- Colors -->
+                            <fieldset aria-label="Choose a color">
+                              <legend class="text-sm font-medium text-gray-900">
+                                Color
+                              </legend>
+
+                              <div class="mt-4 flex items-center gap-x-3">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke-width="1.5"
+                                  stroke="currentColor"
+                                  class="size-8 text-red-500"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
+                                  />
+                                </svg>
+                              </div>
+                            </fieldset>
+
+                            <!-- Sizes -->
+                            <fieldset class="mt-10" aria-label="Choose a size">
+                              <div class="flex items-center justify-between">
+                                <div class="text-sm font-medium text-gray-900">
+                                  Opções
+                                </div>
+                              </div>
+
+                              <div class="mt-4 grid grid-cols-3 gap-3">
+                                <!-- Active: "ring-2 ring-indigo-500" -->
+                                <label
+                                  class="option_label group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-2 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none active:ring-2 active:ring-gray-300 sm:flex-1"
+                                >
+                                  <input
+                                    type="radio"
+                                    name="size-choice"
+                                    value="XS"
+                                    class="sr-only option_input"
+                                  />
+                                  <span>Sem Chicote</span>
+                                  <!--
+                                    Active: "border", Not Active: "border-2"
+                                    Checked: "border-indigo-500", Not Checked: "border-transparent"
+                                  -->
+                                  <span
+                                    class="pointer-events-none absolute -inset-px rounded-md"
+                                    aria-hidden="true"
+                                  ></span>
+                                </label>
+                                <label
+                                  class="option_label group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-2 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none active:ring-2 active:ring-gray-300 sm:flex-1"
+                                >
+                                  <input
+                                    type="radio"
+                                    name="size-choice"
+                                    value="S"
+                                    class="sr-only option_input"
+                                  />
+                                  <span>Com Chicote 3m</span>
+                                  <span
+                                    class=" pointer-events-none absolute -inset-px rounded-md"
+                                    aria-hidden="true"
+                                  ></span>
+                                </label>
+                                <label
+                                  class="option_label group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-2 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none active:ring-2 active:ring-gray-300 sm:flex-1"
+                                >
+                                  <input
+                                    type="radio"
+                                    name="size-choice"
+                                    value="M"
+                                    class="sr-only option_input"
+                                  />
+                                  <span>Com Chicote 6m</span>
+                                  <span
+                                    class="pointer-events-none absolute -inset-px rounded-md"
+                                    aria-hidden="true"
+                                  ></span>
+                                </label>
+                              </div>
+                            </fieldset>
+
+                            <button 
+                              type="button" 
+                              onclick="addToCart(event)"
+                              data-product-name="FT600 SFI - Injeção Eletrônica Programável"
+                              data-product-price="13190.00"
+                              data-product-brand="FUELTECH"
+                              class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                              Adicionar ao Carrinho
+                            </button>
+                          </form>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="img_btn group relative cursor-pointer">
+            <img
+              src="https://images.tcdn.com.br/img/img_prod/612077/cilindro_de_oxido_nitroso_10lbs_4_5kg_1802_1_20240129163957.jpg"
+              alt="Front of men&#039;s Basic Tee in black."
+              class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78"
+            />
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-sm text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    Cilindro de Oxido Nitroso 10lbs (4,5kg)
+                  </a>
+                </h3>
+                <div
+                  class="inline-block bg-blue-500 px-4 text-white text-xs font-semibold rounded-full uppercase tracking-wide"
+                >
+                  <span>NOS</span>
+                </div>
+              </div>
+              <p class="text-sm font-medium text-gray-900">R$ 5.331,35</p>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div
+            
+            class="modal relative z-10 hidden"
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              class="fixed inset-0 hidden bg-gray-500/75 transition-opacity md:block"
+              aria-hidden="true"
+            ></div>
+
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+              <div
+                class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4"
+              >
+                <div
+                  class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl"
+                >
+                  <div
+                    class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8"
+                  >
+                    <button
+                      type="button"
+                      class="close_modal_btn absolute right-4 top-20 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-20 md:right-6 md:top-10 lg:right-8 lg:top-8"
+                     
+                    >
+                      <span class="sr-only">Close</span>
+                      <svg
+                        class="size-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                        data-slot="icon"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18 18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+
+                    <div
+                      class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8"
+                    >
+                      <img
+                        src="https://images.tcdn.com.br/img/img_prod/612077/cilindro_de_oxido_nitroso_10lbs_4_5kg_1802_1_20240129163957.jpg"
+                        alt="Two each of gray, white, and black shirts arranged on table."
+                        class="aspect-[3/3] w-full rounded-lg bg-gray-100 object-cover sm:col-span-5 lg:col-span-5"
+                      />
+                      <div class="sm:col-span-8 lg:col-span-7">
+                        <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">
+                          Cilindro de Oxido Nitroso 10lbs (4,5kg)
+                        </h2>
+                        <div
+                          class="inline-block bg-blue-500 px-4 text-white text-xs font-semibold rounded-full uppercase tracking-wide"
+                        >
+                          <span>NOS</span>
+                        </div>
+                        <section
+                          aria-labelledby="information-heading"
+                          class="mt-2"
+                        >
+                          <h3 id="information-heading" class="sr-only">
+                            Product information
+                          </h3>
+                          <p class="text-2xl text-gray-900">R$ 5.331,35</p>
+                          <div class="mt-6">
+                            <h4 class="sr-only">Reviews</h4>
+                            <div class="flex items-center">
+                              <div class="flex items-center">
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-200"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                              </div>
+                              <p class="sr-only">4.9 out of 5 stars</p>
+                              <a
+                                href="#"
+                                class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                                >1.300 reviews</a
+                              >
+                            </div>
+                          </div>
+                        </section>
+
+                        <section
+                          aria-labelledby="options-heading"
+                          class="mt-10"
+                        >
+                          <h3 id="options-heading" class="sr-only">
+                            Opções de Produtos
+                          </h3>
+
+                          <form>
+                            <!-- Colors -->
+                            <fieldset aria-label="Choose a color">
+                              <legend class="text-sm font-medium text-gray-900">
+                                Cor
+                              </legend>
+
+                              <div class="mt-4 flex items-center gap-x-3">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke-width="1.5"
+                                  stroke="currentColor"
+                                  class="size-8 text-red-500"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
+                                  />
+                                </svg>
+                              </div>
+                            </fieldset>
+
+                            <button 
+                              type="button" 
+                              onclick="addToCart(event)"
+                              data-product-name="Cilindro de Oxido Nitroso 10lbs (4,5kg)"
+                              data-product-price="5331.35"
+                              data-product-brand="NOS"
+                              class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                              Adicionar ao Carrinho
+                            </button>
+                          </form>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="img_btn group relative cursor-pointer">
+            <img
+              src="https://cf.shopee.com.br/file/7056bdd4bfee477ab33670a06e79f572"
+              alt="Front of men&#039;s Basic Tee in black."
+              class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78"
+            />
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-sm text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    Ponteira Esportiva Dupla Reta <br />(3,5 Polegadas)
+                  </a>
+                </h3>
+                <div
+                  class="inline-block bg-gray-300 px-4 text-black text-xs font-semibold rounded-full uppercase tracking-wide"
+                >
+                  <span>NOX</span>
+                </div>
+              </div>
+              <p class="text-sm font-medium text-gray-900">R$<br />499,00</p>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div
+            
+            class="modal relative z-10 hidden"
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              class="fixed inset-0 hidden bg-gray-500/75 transition-opacity md:block"
+              aria-hidden="true"
+            ></div>
+
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+              <div
+                class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4"
+              >
+                <div
+                  class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl"
+                >
+                  <div
+                    class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8"
+                  >
+                    <button
+                      type="button"
+                      class="close_modal_btn absolute right-4 top-20 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-20 md:right-6 md:top-10 lg:right-8 lg:top-8"
+                     
+                    >
+                      <span class="sr-only">Close</span>
+                      <svg
+                        class="size-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                        data-slot="icon"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18 18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+
+                    <div
+                      class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8"
+                    >
+                      <img
+                        src="https://cf.shopee.com.br/file/7056bdd4bfee477ab33670a06e79f572"
+                        alt=""
+                        class="aspect-[3/3] w-full rounded-lg bg-gray-100 object-cover sm:col-span-5 lg:col-span-5"
+                      />
+                      <div class="sm:col-span-8 lg:col-span-7">
+                        <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">
+                          Ponteira Esportiva Dupla Reta <br />(3,5 Polegadas)
+                        </h2>
+                        <div
+                          class="inline-block bg-gray-300 px-4 text-black text-xs font-semibold rounded-full uppercase tracking-wide"
+                        >
+                          <span>NOX</span>
+                        </div>
+                        <section
+                          aria-labelledby="information-heading"
+                          class="mt-2"
+                        >
+                          <h3 id="information-heading" class="sr-only">
+                            Informações
+                          </h3>
+                          <p class="text-2xl text-gray-900">R$ 499,00</p>
+                          <div class="mt-6">
+                            <h4 class="sr-only">Avaliações</h4>
+                            <div class="flex items-center">
+                              <div class="flex items-center">
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-200"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                              </div>
+                              <p class="sr-only">3.5 out of 5 stars</p>
+                              <a
+                                href="#"
+                                class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                                >540 reviews</a
+                              >
+                            </div>
+                          </div>
+                        </section>
+
+                        <section
+                          aria-labelledby="options-heading"
+                          class="mt-10"
+                        >
+                          <h3 id="options-heading" class="sr-only">
+                            Opções de produto
+                          </h3>
+
+                          <form>
+                            <!-- Colors -->
+                            <fieldset aria-label="Choose a color">
+                              <legend class="text-sm font-medium text-gray-900">
+                                Color
+                              </legend>
+
+                              <div class="mt-4 flex items-center gap-x-3">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke-width="1.5"
+                                  stroke="currentColor"
+                                  class="size-8 text-red-500"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
+                                  />
+                                </svg>
+                              </div>
+                            </fieldset>
+
+                            <button 
+                              type="button" 
+                              onclick="addToCart(event)"
+                              data-product-name="Ponteira Esportiva Dupla Reta (3,5 Polegadas)"
+                              data-product-price="499.00"
+                              data-product-brand="NOX"
+                              class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                              Adicionar ao Carrinho
+                            </button>
+                          </form>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="img_btn group relative cursor-pointer">
+            <img
+              src="https://http2.mlstatic.com/D_NQ_NP_674153-MLB75909400960_042024-O.webp"
+              alt="Front of men&#039;s Basic Tee in black."
+              class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78"
+            />
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-sm text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    4 Rodas KR F1 Modelo RPF1<br />(Aro 17)
+                  </a>
+                </h3>
+                <div
+                  class="inline-block bg-yellow-400 px-4 text-black text-xs font-semibold rounded-full uppercase tracking-wide"
+                >
+                  <span>ENKEI</span>
+                </div>
+              </div>
+              <p class="text-sm font-medium text-gray-900">R$<br />3.679,00</p>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div
+            
+            class="modal relative z-10 hidden"
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              class="fixed inset-0 hidden bg-gray-500/75 transition-opacity md:block"
+              aria-hidden="true"
+            ></div>
+
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+              <div
+                class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4"
+              >
+                <div
+                  class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl"
+                >
+                  <div
+                    class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8"
+                  >
+                    <button
+                      type="button"
+                      class="close_modal_btn absolute right-4 top-20 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-20 md:right-6 md:top-10 lg:right-8 lg:top-8"
+                    
+                    >
+                      <span class="sr-only">Close</span>
+                      <svg
+                        class="size-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                        data-slot="icon"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18 18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+
+                    <div
+                      class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8"
+                    >
+                      <img
+                        src="https://http2.mlstatic.com/D_NQ_NP_674153-MLB75909400960_042024-O.webp"
+                        alt="Two each of gray, white, and black shirts arranged on table."
+                        class="aspect-[3/3] w-full rounded-lg bg-gray-100 object-cover sm:col-span-5 lg:col-span-5"
+                      />
+                      <div class="sm:col-span-8 lg:col-span-7">
+                        <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">
+                          4 Rodas KR F1 Modelo RPF1<br />(Aro 17)
+                        </h2>
+                        <div
+                          class="inline-block bg-yellow-400 px-4 text-black text-xs font-semibold rounded-full uppercase tracking-wide"
+                        >
+                          <span>ENKEI</span>
+                        </div>
+                        <section
+                          aria-labelledby="information-heading"
+                          class="mt-2"
+                        >
+                          <h3 id="information-heading" class="sr-only">
+                            Product information
+                          </h3>
+                          <p class="text-2xl text-gray-900">R$ 3.679,00</p>
+                          <div class="mt-6">
+                            <h4 class="sr-only">Reviews</h4>
+                            <div class="flex items-center">
+                              <div class="flex items-center">
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-200"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                              </div>
+                              <p class="sr-only">3.9 out of 5 stars</p>
+                              <a
+                                href="#"
+                                class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                                >117 reviews</a
+                              >
+                            </div>
+                          </div>
+                        </section>
+
+                        <section
+                          aria-labelledby="options-heading"
+                          class="mt-10"
+                        >
+                          <h3 id="options-heading" class="sr-only">
+                            Product options
+                          </h3>
+
+                          <form>
+                            <!-- Colors -->
+                            <fieldset aria-label="Choose a color">
+                              <legend class="text-sm font-medium text-gray-900">
+                                Color
+                              </legend>
+
+                              <div class="mt-4 flex items-center gap-x-3">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke-width="1.5"
+                                  stroke="currentColor"
+                                  class="size-8 text-red-500"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
+                                  />
+                                </svg>
+                              </div>
+                            </fieldset>
+
+                            <!-- Sizes -->
+                            <fieldset class="mt-10" aria-label="Choose a size">
+                              <div class="flex items-center justify-between">
+                                <div class="text-sm font-medium text-gray-900">
+                                  Opções
+                                </div>
+                              </div>
+
+                              <div class="mt-4 grid grid-cols-3 gap-3">
+                                <!-- Active: "ring-2 ring-indigo-500" -->
+                                <label
+                                  class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-2 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1"
+                                >
+                                  <input
+                                    type="radio"
+                                    name="size-choice"
+                                    value="XS"
+                                    class="sr-only"
+                                  />
+                                  <span>Sem Chicote</span>
+                                  <!--
+                                    Active: "border", Not Active: "border-2"
+                                    Checked: "border-indigo-500", Not Checked: "border-transparent"
+                                  -->
+                                  <span
+                                    class="pointer-events-none absolute -inset-px rounded-md"
+                                    aria-hidden="true"
+                                  ></span>
+                                </label>
+                                <label
+                                  class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-2 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1"
+                                >
+                                  <input
+                                    type="radio"
+                                    name="size-choice"
+                                    value="S"
+                                    class="sr-only"
+                                  />
+                                  <span>Com Chicote 3m</span>
+                                  <span
+                                    class="pointer-events-none absolute -inset-px rounded-md"
+                                    aria-hidden="true"
+                                  ></span>
+                                </label>
+                                <label
+                                  class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-2 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1"
+                                >
+                                  <input
+                                    type="radio"
+                                    name="size-choice"
+                                    value="M"
+                                    class="sr-only"
+                                  />
+                                  <span>Com Chicote 6m</span>
+                                  <span
+                                    class="pointer-events-none absolute -inset-px rounded-md"
+                                    aria-hidden="true"
+                                  ></span>
+                                </label>
+                              </div>
+                            </fieldset>
+
+                            <button 
+                              type="button" 
+                              onclick="addToCart(event)"
+                              data-product-name="4 Rodas KR F1 Modelo RPF1 (Aro 17)"
+                              data-product-price="3679.00"
+                              data-product-brand="ENKEI"
+                              class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                              Adicionar ao Carrinho
+                            </button>
+                          </form>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-gray-50 py-24 sm:py-32">
+      <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+        <h2 class="text-center text-base/7 font-semibold text-red-600">
+          Potência, Precisão, Performance
+        </h2>
+        <p
+          class="mx-auto mt-2 max-w-lg text-balance text-center text-4xl font-semibold tracking-tight text-gray-950 sm:text-5xl"
+        >
+          Desempenho Extremo para Quem Exige o Melhor
+        </p>
+        <div class="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
+          <div class="relative lg:row-span-2">
+            <div
+              class="absolute inset-px rounded-lg bg-white lg:rounded-l-[2rem]"
+            ></div>
+            <div
+              class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-l-[calc(2rem+1px)]"
+            >
+              <div class="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
+                <p
+                  class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center"
+                >
+                  O Melhor Para Seu Motor
+                </p>
+                <p
+                  class="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center"
+                >
+                  Filtros, escapamentos, turbos e muito mais! Tudo o que você
+                  precisa para elevar o nível da sua máquina.
+                </p>
+              </div>
+              <div
+                class="relative min-h-[30rem] w-full grow [container-type:inline-size] max-lg:mx-auto max-lg:max-w-sm"
+              >
+                <div
+                  class="absolute inset-x-10 bottom-0 top-10 overflow-hidden rounded-t-[4cqw] shadow-2xl"
+                >
+                  <img
+                    class="size-full object-cover object-top"
+                    src="https://images.pexels.com/photos/9381015/pexels-photo-9381015.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5 lg:rounded-l-[2rem]"
+            ></div>
+          </div>
+          <div class="relative max-lg:row-start-1">
+            <div
+              class="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem]"
+            ></div>
+            <div
+              class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]"
+            >
+              <div class="px-8 pt-8 sm:px-10 sm:pt-10">
+                <p
+                  class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center"
+                >
+                  Potência que Impressiona
+                </p>
+                <p
+                  class="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center"
+                >
+                  Acelere com confiança! Peças de alto desempenho para turbinar
+                  sua máquina e extrair o melhor do motor.
+                </p>
+              </div>
+              <div class="relative min-h-[16rem] w-full grow">
+                <div
+                  class="absolute bottom-0 left-10 right-10 top-8 overflow-hidden rounded-t-xl bg-gray-900 shadow-2xl"
+                >
+                  <img
+                    class="size-full object-cover object-top"
+                    src="https://images.pexels.com/photos/18882371/pexels-photo-18882371/free-photo-of-carro-veiculo-automovel-rapidez.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5 max-lg:rounded-t-[2rem]"
+            ></div>
+          </div>
+          <div
+            class="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2"
+          >
+            <div class="absolute inset-px rounded-lg bg-white"></div>
+            <div class="relative min-h-[16rem] w-full grow">
+              <div
+                class="absolute bottom-8 left-10 right-10 top-0 overflow-hidden rounded-b-xl bg-gray-900 shadow-2xl"
+              >
+                <img
+                  class="size-full object-cover object-bottom"
+                  src="https://images.pexels.com/photos/12181011/pexels-photo-12181011.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div
+              class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]"
+            >
+              <div class="px-8 pb-8 sm:px-10 sm:pb-10">
+                <p
+                  class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center"
+                >
+                  Conduza o Futuro
+                </p>
+                <p
+                  class="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center"
+                >
+                  Tecnologia de ponta para quem não aceita limites. Otimize
+                  potência, economia e dirigibilidade com componentes de elite.
+                </p>
+              </div>
+            </div>
+            <div
+              class="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5"
+            ></div>
+          </div>
+          <div class="relative lg:row-span-2">
+            <div
+              class="absolute inset-px rounded-lg bg-white max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"
+            ></div>
+            <div
+              class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]"
+            >
+              <div class="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
+                <p
+                  class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center"
+                >
+                  Domine as Pistas
+                </p>
+                <p
+                  class="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center"
+                >
+                  Seja para competições ou para o dia a dia, oferecemos
+                  componentes que aumentam a potência, estabilidade e resposta
+                  do seu veículo.
+                </p>
+              </div>
+              <div class="relative min-h-[30rem] w-full grow">
+                <div
+                  class="absolute bottom-0 left-10 right-0 top-10 overflow-hidden rounded-tl-xl bg-gray-900 shadow-2xl"
+                >
+                  <img
+                    class="size-full object-cover object-top"
+                    src="https://images.pexels.com/photos/31078163/pexels-photo-31078163.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0"
+    >
+      <div class="absolute inset-0 -z-10 overflow-hidden">
+        <svg
+          class="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-gray-200 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]"
+          aria-hidden="true"
+        >
+          <defs>
+            <pattern
+              id="e813992c-7d03-4cc4-a2bd-151760b470a0"
+              width="200"
+              height="200"
+              x="50%"
+              y="-1"
+              patternUnits="userSpaceOnUse"
+            >
+              <path d="M100 200V.5M.5 .5H200" fill="none" />
+            </pattern>
+          </defs>
+          <svg x="50%" y="-1" class="overflow-visible fill-gray-50">
+            <path
+              d="M-100.5 0h201v201h-201Z M699.5 0h201v201h-201Z M499.5 400h201v201h-201Z M-300.5 600h201v201h-201Z"
+              stroke-width="0"
+            />
+          </svg>
+          <rect
+            width="100%"
+            height="100%"
+            stroke-width="0"
+            fill="url(#e813992c-7d03-4cc4-a2bd-151760b470a0)"
+          />
+        </svg>
+      </div>
+      <div class="bg-white py-24 sm:py-32">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <h2 class="text-center text-lg/8 font-semibold text-gray-900">Parcerias com as melhores marcas para garantir tecnologia, qualidade e alta performance.</h2>
+          <div class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+            <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://img.olx.com.br/images/53/532549018683643.jpg" alt="Transistor" width="158" height="48">
+            <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRb9J_lGWPgfVkIn9a6WHr7ghLXdNFc0kni6g&s" alt="Reform" width="158" height="48">
+            <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Falken_Tire_logo.svg/2560px-Falken_Tire_logo.svg.png" alt="Tuple" width="158" height="48">
+            <img class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/BBS_logo.svg/1200px-BBS_logo.svg.png" alt="SavvyCal" width="158" height="48">
+            <img class="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1" src="https://seeklogo.com/images/B/borla-logo-24FE402C3D-seeklogo.com.png" alt="Statamic" width="158" height="48">
+          </div>
+        </div>
+      </div>
+      <div
+        class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10"
+      >
+        <div
+          class="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8"
+        >
+          <div class="lg:pr-4">
+            <div class="lg:max-w-lg">
+              <p class="text-base/7 font-semibold text-red-500">
+                Transformando sua direção
+              </p>
+              <h1
+                class="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl"
+              >
+                Sobre Nós
+              </h1>
+              <p class="mt-6 text-xl/8 text-gray-700">
+                A Power Shift é especializada em oferecer autopeças de alta
+                performance, projetadas para transformar a experiência ao
+                volante. Trabalhamos com as melhores marcas do mercado,
+                garantindo qualidade, inovação e segurança em cada componente.
+                Nossa missão é fornecer soluções que aumentem a potência, a
+                precisão e a confiabilidade do seu veículo, seja para uso diário
+                ou para competições. Com peças certificadas, instalação
+                simplificada e suporte especializado, a Power Shift é a escolha
+                certa para quem exige o melhor desempenho e tecnologia de ponta
+                para seu carro.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="-ml-12 -mt-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden"
+        >
+          <img
+            class="w-[48rem] max-w-none rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem]"
+            src="https://images.pexels.com/photos/4315575/pexels-photo-4315575.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="relative isolate overflow-hidden bg-red-500 py-16 sm:py-24 lg:py-32"
+    >
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div
+          class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2"
+        >
+          <div class="max-w-xl lg:max-w-lg">
+            <h2 class="text-4xl font-semibold tracking-tight text-white">
+              Receba Promoções Exclusivas
+            </h2>
+            <p class="mt-4 text-lg text-gray-200">
+              Cadastre-se e seja o primeiro a saber sobre nossas ofertas
+              imperdíveis, descontos especiais e promoções exclusivas. Não perca
+              nenhuma oportunidade!
+            </p>
+            <div class="mt-6 flex max-w-md gap-x-4">
+              <label for="email-address" class="sr-only"
+                >Endereço de e-mail</label
+              >
+              <input
+                id="email-address"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                class="min-w-0 flex-auto rounded-md bg-white px-3.5 py-2 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-red-500 sm:text-sm/6"
+                placeholder="Digite seu e-mail"
+              />
+              <button
+                type="submit"
+                class="flex-none rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400"
+              >
+                Enviar
+              </button>
+            </div>
+          </div>
+          <dl class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
+            <div class="flex flex-col items-start">
+              <div class="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
+                <svg
+                  class="size-6 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  data-slot="icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
+                  />
+                </svg>
+              </div>
+              <dt class="mt-4 text-base font-semibold text-white">
+                Ofertas semanais
+              </dt>
+              <dd class="mt-2 text-base/7 text-gray-200">
+                A cada semana, você receberá as melhores ofertas e descontos
+                diretamente no seu e-mail. Fique por dentro das promoções que só
+                quem está inscrito recebe!
+              </dd>
+            </div>
+            <div class="flex flex-col items-start">
+              <div class="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
+                <svg
+                  class="size-6 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  data-slot="icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10.05 4.575a1.575 1.575 0 1 0-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 0 1 3.15 0v1.5m-3.15 0 .075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 0 1 3.15 0V15M6.9 7.575a1.575 1.575 0 1 0-3.15 0v8.175a6.75 6.75 0 0 0 6.75 6.75h2.018a5.25 5.25 0 0 0 3.712-1.538l1.732-1.732a5.25 5.25 0 0 0 1.538-3.712l.003-2.024a.668.668 0 0 1 .198-.471 1.575 1.575 0 1 0-2.228-2.228 3.818 3.818 0 0 0-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0 1 16.35 15m.002 0h-.002"
+                  />
+                </svg>
+              </div>
+              <dt class="mt-4 text-base font-semibold text-white">Sem spam</dt>
+              <dd class="mt-2 text-base/7 text-gray-200">
+                A privacidade é nossa prioridade. Seus dados serão usados apenas
+                para enviar promoções relevantes, sem mensagens indesejadas.
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <footer class="bg-red-500 text-white py-8">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Sobre -->
+          <div>
+            <h3 class="text-xl font-semibold mb-4">Sobre</h3>
+            <p class="text-sm">
+              A Power Shift oferece autopeças de alta performance, garantindo
+              potência, precisão e confiabilidade. Trabalhamos com as melhores
+              marcas para transformar seu carro com qualidade e inovação.
+            </p>
+          </div>
+
+          <!-- Links rápidos -->
+          <div>
+            <h3 class="text-xl font-semibold mb-4">Links rápidos</h3>
+            <ul>
+              <li><a href="#" class="text-sm hover:text-gray-400">Home</a></li>
+              <li><a href="#" class="text-sm hover:text-gray-400">Sobre</a></li>
+              <li>
+                <a href="#" class="text-sm hover:text-gray-400">Serviços</a>
+              </li>
+              <li>
+                <a href="#" class="text-sm hover:text-gray-400">Contato</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contato -->
+          <div>
+            <h3 class="text-xl font-semibold mb-4">Contato</h3>
+            <p class="text-sm">Email: contato@exemplo.com</p>
+            <p class="text-sm">Telefone: (11) 1234-5678</p>
+          </div>
+        </div>
+
+        <div class="mt-8 border-t border-gray-700 pt-4 text-center">
+          <p class="text-sm">
+            &copy; 2025 Sua Empresa. Todos os direitos reservados.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

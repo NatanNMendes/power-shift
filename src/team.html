@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/output.css" />
+    <script src="./js/index.js"></script>
+    <script src="./js/shopping_cart.js"></script>
+    <title>Power Shift - Colaboradores</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./images/favicon_io/favicon.ico"
+    />
+  </head>
+  <body>
+    <script>
+      window.addEventListener('cartUpdated', () => {
+        cart = JSON.parse(localStorage.getItem('cart')) || [];
+        updateCartUI();
+      });
+    </script>
+    <nav class="bg-red-500 fixed top-0 left-0 w-full z-50">
+      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+          <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            <button
+              type="button"
+              class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              aria-controls="mobile-menu"
+              aria-expanded="false"
+            >
+              <span class="absolute -inset-0.5"></span>
+              <span class="sr-only">Open main menu</span>
+              <svg
+                class="block size-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+              <svg
+                class="hidden size-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
+          >
+            <div class="flex shrink-0 items-center">
+              <img
+                class="h-8 w-auto"
+                src="./images/logo.png"
+                alt="Power Swift Logo"
+              />
+            </div>
+            <div class="hidden sm:ml-6 sm:block">
+              <div class="flex space-x-4">
+                <a
+                  href="./index.html"
+                  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-red-700 hover:text-white"
+                  aria-current="page"
+                  >Home</a
+                >
+                <a
+                  href="./events.html"
+                  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-red-700 hover:text-white"
+                  >Eventos</a
+                >
+                <a
+                  href="#"
+                  class="rounded-md bg-red-900 px-3 py-2 text-sm font-medium text-white"
+                  >Equipe</a
+                >
+                <a
+                  href="./shop.html"
+                  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-red-700 hover:text-white"
+                  >Shop</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Carrinho -->
+          <div class="flex items-center pr-2 sm:pr-0 relative">
+            <button onclick="toggleCart()" class="relative rounded-full p-1 text-gray-300 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+              <span id="cart-count" class="absolute -top-1 -right-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-900 text-xs text-white shadow">0</span>
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+              </svg>
+            </button>
+          </div>
+          <!-- Carrinho Dropdown -->
+          <div id="cart-dropdown" class="hidden absolute right-0 top-12 w-80 bg-white rounded-lg shadow-xl z-50">
+            <div class="p-4">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold">Seu Carrinho</h3>
+                <button onclick="toggleCart()" class="text-gray-500 hover:text-red-600">
+                  &times;
+                </button>
+              </div>
+
+              <div id="cart-items" class="space-y-4 max-h-96 overflow-y-auto">
+                
+              </div>
+              
+              <div class="border-t mt-4 pt-4">
+                <div class="flex justify-between items-center">
+                  <span class="font-bold">Total:</span>
+                  <span id="cart-total" class="font-bold text-red-600">R$ 0,00</span>
+                </div>
+                <a href="./checkout.html" class="mt-4 block w-full text-center bg-red-600 text-white py-2 rounded hover:bg-red-700">
+                  Finalizar Compra
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sm:hidden hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pb-3 pt-2">
+          <a
+            href="./index.html"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Home</a
+          >
+          <a
+            href="./events.html"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Eventos</a
+          >
+          <a
+            href="#"
+            class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+            aria-current="page"
+            >Equipe</a
+          >
+          <a
+            href="./shop.html"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Shop</a
+          >
+        </div>
+      </div>
+    </nav>
+    <section>
+      <div class="bg-white py-24 sm:py-32">
+        <div class="mx-auto grid max-w-7xl gap-20 px-6 lg:px-8 xl:grid-cols-3">
+          <div class="max-w-xl">
+            <h2
+              class="text-3xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-4xl"
+            >
+              Conheça nossa equipe!
+            </h2>
+            <p class="mt-6 text-lg/8 text-gray-600">
+              Somos um grupo dinâmico de indivíduos apaixonados pelo que fazemos
+              e dedicados a entregar os melhores resultados para nossos
+              clientes.
+            </p>
+          </div>
+          <ul
+            role="list"
+            class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2"
+          >
+            <li>
+              <div class="flex items-center gap-x-6">
+                <img
+                  class="size-24 rounded-full"
+                  src="https://avatars.githubusercontent.com/u/111541934?v=4"
+                  alt=""
+                />
+                <div>
+                  <h3
+                    class="text-base/7 font-semibold tracking-tight text-gray-900"
+                  >
+                    <a
+                      href="https://github.com/NatanNMendes"
+                      class="hover:opacity-75"
+                      target="_blank"
+                      >Natan Nunes
+                    </a>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      class="size-6 inline-block"
+                    >
+                      <path
+                        d="M7.25 1.75a.75.75 0 0 1 1.5 0v1.5a.75.75 0 0 1-1.5 0v-1.5ZM11.536 2.904a.75.75 0 1 1 1.06 1.06l-1.06 1.061a.75.75 0 0 1-1.061-1.06l1.06-1.061ZM14.5 7.5a.75.75 0 0 0-.75-.75h-1.5a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 .75-.75ZM4.464 9.975a.75.75 0 0 1 1.061 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061ZM4.5 7.5a.75.75 0 0 0-.75-.75h-1.5a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 .75-.75ZM5.525 3.964a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 1.06-1.061l1.061 1.06ZM8.779 7.438a.75.75 0 0 0-1.368.366l-.396 5.283a.75.75 0 0 0 1.212.646l.602-.474.288 1.074a.75.75 0 1 0 1.449-.388l-.288-1.075.759.11a.75.75 0 0 0 .726-1.165L8.78 7.438Z"
+                      />
+                    </svg>
+                  </h3>
+                  <p class="text-sm/6 font-semibold text-[red]">
+                    Obrigado a fazer front
+                  </p>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="flex items-center gap-x-6">
+                <img
+                  class="size-24 rounded-full"
+                  src="https://avatars.githubusercontent.com/u/126204028?v=4"
+                  alt=""
+                />
+                <div>
+                  <h3
+                    class="text-base/7 font-semibold tracking-tight text-gray-900"
+                  >
+                    <a
+                      href="https://github.com/TuaneLeao"
+                      class="hover:opacity-75"
+                      target="_blank"
+                    >
+                      Gustavo Leão
+                    </a>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      class="size-6 inline-block"
+                    >
+                      <path
+                        d="M7.25 1.75a.75.75 0 0 1 1.5 0v1.5a.75.75 0 0 1-1.5 0v-1.5ZM11.536 2.904a.75.75 0 1 1 1.06 1.06l-1.06 1.061a.75.75 0 0 1-1.061-1.06l1.06-1.061ZM14.5 7.5a.75.75 0 0 0-.75-.75h-1.5a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 .75-.75ZM4.464 9.975a.75.75 0 0 1 1.061 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061ZM4.5 7.5a.75.75 0 0 0-.75-.75h-1.5a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 .75-.75ZM5.525 3.964a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 1.06-1.061l1.061 1.06ZM8.779 7.438a.75.75 0 0 0-1.368.366l-.396 5.283a.75.75 0 0 0 1.212.646l.602-.474.288 1.074a.75.75 0 1 0 1.449-.388l-.288-1.075.759.11a.75.75 0 0 0 .726-1.165L8.78 7.438Z"
+                      />
+                    </svg>
+                  </h3>
+                  <p class="text-sm/6 font-semibold text-[red]">
+                    obrigou ele a fazer front
+                  </p>
+                </div>
+              </div>
+            </li>
+            <!-- More people... -->
+          </ul>
+          <div class="max-w-xl">
+            <p class="mt-6 text-lg/8 text-gray-600">
+              Conheça mais o nosso trabalho através de outros projetos no Github
+              clicando em nossos nomes!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/output.css" />
+    <script src="./js/shop.js"></script>
+    <script src="./js/shopping_cart.js"></script>
+    <title>Power Shift - Shop</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./images/favicon_io/favicon.ico"
+    />
+</head>
+<body>
+  <script>
+    window.addEventListener('cartUpdated', () => {
+      cart = JSON.parse(localStorage.getItem('cart')) || [];
+      updateCartUI();
+    });
+  </script>
+  <nav class="bg-red-500 fixed top-0 left-0 w-full z-50">
+    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div class="relative flex h-16 items-center justify-between">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <button
+            type="button"
+            class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+          >
+            <span class="absolute -inset-0.5"></span>
+            <span class="sr-only">Open main menu</span>
+            <svg
+              class="block size-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+              data-slot="icon"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+            <svg
+              class="hidden size-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+              data-slot="icon"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
+        >
+          <div class="flex shrink-0 items-center">
+            <img
+              class="h-8 w-auto"
+              src="./images/logo.png"
+              alt="Power Swift Logo"
+            />
+          </div>
+          <div class="hidden sm:ml-6 sm:block">
+            <div class="flex space-x-4">
+              <a
+                href="./index.html"
+                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-red-700 hover:text-white"
+                aria-current="page"
+                >Home</a
+              >
+              <a
+                href="./events.html"
+                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-red-700 hover:text-white"
+                >Eventos</a
+              >
+              <a
+                href="./team.html"
+                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-red-700 hover:text-white"
+                >Equipe</a
+              >
+              <a
+                href="#"
+                class="rounded-md bg-red-900 px-3 py-2 text-sm font-medium text-white"
+                >Shop</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Carrinho -->
+        <div class="flex items-center pr-2 sm:pr-0 relative">
+          <button onclick="toggleCart()" class="relative rounded-full p-1 text-gray-300 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+            <span id="cart-count" class="absolute -top-1 -right-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-900 text-xs text-white shadow">0</span>
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+            </svg>
+          </button>
+        </div>
+        <!-- Carrinho Dropdown -->
+        <div id="cart-dropdown" class="hidden absolute right-0 top-12 w-80 bg-white rounded-lg shadow-xl z-50">
+          <div class="p-4">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-lg font-bold">Seu Carrinho</h3>
+              <button onclick="toggleCart()" class="text-gray-500 hover:text-red-600">
+                &times;
+              </button>
+            </div>
+
+            <div id="cart-items" class="space-y-4 max-h-96 overflow-y-auto">
+              
+            </div>
+            
+            <div class="border-t mt-4 pt-4">
+              <div class="flex justify-between items-center">
+                <span class="font-bold">Total:</span>
+                <span id="cart-total" class="font-bold text-red-600">R$ 0,00</span>
+              </div>
+              <a href="./checkout.html" class="mt-4 block w-full text-center bg-red-600 text-white py-2 rounded hover:bg-red-700">
+                Finalizar Compra
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sm:hidden hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pb-3 pt-2">
+          <a
+            href="./index.html"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Home</a
+          >
+          <a
+            href="./events.html"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Eventos</a
+          >
+          <a
+            href="./team.html"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Equipe</a
+          >
+          <a
+            href="#"
+            class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+            aria-current="page"
+            >Shop</a
+          >
+        </div>
+      </div>
+  </nav>
+  <div class="flex flex-col sm:grid sm:grid-cols-[40%_60%] lg:grid lg:grid-cols-[20%_75%] h-screen justify-between">
+    <div class="flex bg-red-500 w-full sm:h-full sm:w-64 sm:bg-red-500 sm:mt-10 sm:text-white sm:p-4">
+
+      <!-- Teams -->
+      <div class="mt-6">
+        <form class="mt-4 border-t border-gray-200 flex sm:flex-col">
+          <div class="flex flex-col items-center border-t border-gray-200 px-4 py-6 text-center">
+            <h2 class="text-lg font-semibold text-white">Selecione o Preço</h2>
+            <span class="text-sm text-white mt-4">R$ 100,00 - R$ 50.000,00</span>
+            <input 
+                id="priceRange" 
+                type="range" 
+                min="100" 
+                max="50000" 
+                value="100" 
+                class="w-full h-2 mt-2 bg-white rounded-lg appearance-none cursor-pointer accent-blue-500"
+                oninput="updatePrice(this.value)"
+            >
+            <span id="priceValue" class="mt-2 text-lg font-medium text-white">R$ 100,00</span>
+          </div>
+          <h3 class="sr-only">Categories</h3>
+          <div class="border-t border-gray-200 px-4 py-6">
+            <h3 class="-mx-2 -my-3 flow-root">
+              <!-- Expand/collapse section button -->
+              <button type="button" id="toggleFilterProducer" class="flex w-full items-center justify-between rounded-lg bg-red-500 px-2 py-3 text-white hover:bg-red-700" aria-controls="filter-section-mobile-0" aria-expanded="false">
+                <span class="font-medium text-white">Fabricante</span>
+                <span class="ml-6 flex items-center">
+                  <!-- Expand icon, show/hide based on section open state. -->
+                  <svg class="expand-icon-producer size-5 show" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+                  </svg>
+                  <!-- Collapse icon, show/hide based on section open state. -->
+                  <svg class="collapse-icon-producer size-5 hidden" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </button>
+            </h3>
+            <!-- Filter section, show/hide based on section state. -->
+            <div class="pt-6" id="filter-section-mobile-0">
+              <div class="space-y-6">
+                <div class="filterContentProducer flex gap-3 hidden">
+                  <div class="flex h-5 shrink-0 items-center">
+                    <div class="group grid size-4 grid-cols-1">
+                      <input id="filter-fueltech" 
+                        name="brand[]" 
+                        value="fueltech" 
+                        type="checkbox"
+                        type="checkbox" 
+                        class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="filter-fueltech" class="min-w-0 flex-1 text-white">FuelTech</label>
+                </div>
+                <div class="filterContentProducer flex gap-3 hidden">
+                  <div class="flex h-5 shrink-0 items-center">
+                    <div class="group grid size-4 grid-cols-1">
+                      <input id="filter-nos" 
+                              name="brand[]" 
+                              value="nos" 
+                              type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="filter-nos" class="min-w-0 flex-1 text-white">Nos</label>
+                </div>
+                <div class="filterContentProducer flex gap-3 hidden">
+                  <div class="flex h-5 shrink-0 items-center">
+                    <div class="group grid size-4 grid-cols-1">
+                      <input id="filter-nox" 
+                            name="brand[]" 
+                            value="nox" 
+                            type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="filter-nox" class="min-w-0 flex-1 text-white">Nox</label>
+                </div>
+                <div class="filterContentProducer flex gap-3 hidden">
+                  <div class="flex h-5 shrink-0 items-center">
+                    <div class="group grid size-4 grid-cols-1">
+                      <input  id="filter-enkei" 
+                        name="brand[]" 
+                        value="enkei" 
+                        type="checkbox"  class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="filter-enkei" class="min-w-0 flex-1 text-white">Enkei</label>
+                </div>
+                <div class="filterContentProducer flex gap-3 hidden">
+                  <div class="flex h-5 shrink-0 items-center">
+                    <div class="group grid size-4 grid-cols-1">
+                      <input id="filter-momo" 
+                          name="brand[]" 
+                          value="MOMO" 
+                          type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="filter-momo" class="min-w-0 flex-1 text-white">MOMO</label>
+                </div>
+                <div class="filterContentProducer flex gap-3 hidden">
+                  <div class="flex h-5 shrink-0 items-center">
+                    <div class="group grid size-4 grid-cols-1">
+                      <input id="filter-falken" 
+                        name="brand[]" 
+                        value="Falken" 
+                        type="checkbox"  class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="filter-falken" class="min-w-0 flex-1 text-white">Falken</label>
+                </div>
+                <div class="filterContentProducer flex gap-3 hidden">
+                  <div class="flex h-5 shrink-0 items-center">
+                    <div class="group grid size-4 grid-cols-1">
+                      <input id="filter-bbs" 
+                        name="brand[]" 
+                        value="BBS" 
+                        type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="filter-bbs" class="min-w-0 flex-1 text-white">BBS</label>
+                </div>
+                <div class="filterContentProducer flex gap-3 hidden">
+                  <div class="flex h-5 shrink-0 items-center">
+                    <div class="group grid size-4 grid-cols-1">
+                      <input id="filter-borla" 
+                        name="brand[]" 
+                        value="Borla" 
+                        type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="filter-borla" class="min-w-0 flex-1 text-white">Borla</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="border-t border-gray-200 px-4 py-6">
+            <h3 class="-mx-2 -my-3 flow-root">
+              <!-- Expand/collapse section button -->
+              <button  id="toggleFilterCategory" type="button" class="flex w-full items-center justify-between rounded-lg bg-red-500 px-2 py-3 text-white hover:bg-red-700" aria-controls="filter-section-mobile-1" aria-expanded="false">
+                <span class="font-medium text-white">Categoria</span>
+                <span class="ml-6 flex items-center">
+                  <!-- Expand icon, show/hide based on section open state. -->
+                  <svg class="expand-icon-category show size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+                  </svg>
+                  <!-- Collapse icon, show/hide based on section open state. -->
+                  <svg class="collapse-icon-category hidden size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </button>
+            </h3>
+            <!-- Filter section, show/hide based on section state. -->
+            <div class="pt-6" id="filter-section-mobile-1">
+              <div class="space-y-6">
+                <div class="filterContentCategory flex gap-3 hidden">
+                  <div class="flex h-5 shrink-0 items-center">
+                    <div class="group grid size-4 grid-cols-1">
+                      <input id="filter-category-injection" 
+                        name="category[]" 
+                        value="injection" 
+                        type="checkbox"  class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="filter-category-injection" class="min-w-0 flex-1 text-white">Injeção Eletrônica</label>
+                </div>
+                <div class="filterContentCategory flex gap-3 hidden">
+                  <div class="flex h-5 shrink-0 items-center">
+                    <div class="group grid size-4 grid-cols-1">
+                      <input id="filter-category-exhaust" 
+                        name="category[]" 
+                        value="exhaust" 
+                        type="checkbox"  class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="filter-category-exhaust" class="min-w-0 flex-1 text-white">Escapamento</label>
+                </div>
+                <div class="filterContentCategory flex gap-3 hidden">
+                  <div class="flex h-5 shrink-0 items-center">
+                    <div class="group grid size-4 grid-cols-1">
+                      <input  id="filter-category-nitrous" 
+                        name="category[]" 
+                        value="nitrous" 
+                        type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="filter-category-nitrous" class="min-w-0 flex-1 text-white">Óxido Nitroso</label>
+                </div>
+                <div class="filterContentCategory flex gap-3 hidden">
+                  <div class="flex h-5 shrink-0 items-center">
+                    <div class="group grid size-4 grid-cols-1">
+                      <input  id="filter-category-rim" 
+                        name="category[]" 
+                        value="rim" 
+                        type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="filter-category-rim" class="min-w-0 flex-1 text-white">Jante</label>
+                </div>
+                <div class="filterContentCategory flex gap-3 hidden">
+                  <div class="flex h-5 shrink-0 items-center">
+                    <div class="group grid size-4 grid-cols-1">
+                      <input id="filter-category-tire" 
+                        name="category[]" 
+                        value="tire" 
+                        type="checkbox" class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-red-600 checked:bg-red-600 indeterminate:border-red-600 indeterminate:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                      <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                        <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="filter-category-tire" class="min-w-0 flex-1 text-white">Pneu</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div>
+      <div class="flex items-center w-90 mr-4 my-20 bg-white shadow-md rounded-lg overflow-hidden border">
+        <input 
+            id="searchInput"
+            type="text" 
+            placeholder="Buscar..." 
+            class="w-full px-4 py-2 text-gray-700 focus:outline-none"
+            aria-label="Campo de busca"
+        />
+        <button class="px-4 py-2 bg-red-600 text-white hover:bg-red-700 transition flex items-center justify-center">
+          <svg fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="bg-white">
+        <div class="mx-auto max-w-2xl px-4 lg:max-w-7xl lg:px-8">
+          <div
+          class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
+        >
+          <div class="img_btn group relative cursor-pointer" data-brand="FuelTech" data-category="injection" data-price="13190.00" data-name="FT600 SFI - Injeção Eletrônica Programável">
+            <img
+              src="https://fueltech.com.br/cdn/shop/products/FUELTECH-FT600-INJECAO-ELETRONICA-PROGRAMAVEL_2_2048x2048.jpg?v=1667503397"
+              alt="Front of men&#039;s Basic Tee in black."
+              class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78"
+            />
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-sm text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    FT600 SFI - Injeção Eletrônica Programável
+                  </a>
+                </h3>
+                <div
+                  class="inline-block bg-red-500 px-4 text-white text-xs font-semibold rounded-full uppercase tracking-wide"
+                >
+                  <span>FUELTECH</span>
+                </div>
+              </div>
+              <p class="text-sm font-medium text-gray-900">R$ 13.190,00</p>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div
+            class="modal relative z-10 hidden"
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              class="fixed inset-0 hidden bg-gray-500/75 transition-opacity md:block"
+              aria-hidden="true"
+            ></div>
+
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+              <div
+                class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4"
+              >
+                <div
+                  class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl"
+                >
+                  <div
+                    class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8"
+                  >
+                    <button
+                      type="button"
+                      class="close_modal_btn absolute right-4 top-20 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-20 md:right-6 md:top-10 lg:right-8 lg:top-8"
+                      
+                    >
+                      <span class="sr-only">Close</span>
+                      <svg
+                        class="size-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                        data-slot="icon"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18 18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+
+                    <div
+                      class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8"
+                    >
+                      <img
+                        src="https://fueltech.com.br/cdn/shop/products/FUELTECH-FT600-INJECAO-ELETRONICA-PROGRAMAVEL_2_2048x2048.jpg?v=1667503397"
+                        alt="Two each of gray, white, and black shirts arranged on table."
+                        class="aspect-[3/3] w-full rounded-lg bg-gray-100 object-cover sm:col-span-5 lg:col-span-5"
+                      />
+                      <div class="sm:col-span-8 lg:col-span-7">
+                        <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">
+                          FT600 SFI - Injeção Eletrônica Programável
+                        </h2>
+                        <div
+                          class="inline-block bg-red-500 px-4 text-white text-xs font-semibold rounded-full uppercase tracking-wide"
+                        >
+                          <span>FUELTECH</span>
+                        </div>
+                        <section
+                          aria-labelledby="information-heading"
+                          class="mt-2"
+                        >
+                          <h3 id="information-heading" class="sr-only">
+                            Product information
+                          </h3>
+                          <p class="text-2xl text-gray-900">R$ 13.190,00</p>
+                          <div class="mt-6">
+                            <h4 class="sr-only">Reviews</h4>
+                            <div class="flex items-center">
+                              <div class="flex items-center">
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-200"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                              </div>
+                              <p class="sr-only">3.9 out of 5 stars</p>
+                              <a
+                                href="#"
+                                class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                                >117 reviews</a
+                              >
+                            </div>
+                          </div>
+                        </section>
+
+                        <section
+                          aria-labelledby="options-heading"
+                          class="mt-10"
+                        >
+                          <h3 id="options-heading" class="sr-only">
+                            Product options
+                          </h3>
+
+                          <form>
+                            <!-- Colors -->
+                            <fieldset aria-label="Choose a color">
+                              <legend class="text-sm font-medium text-gray-900">
+                                Color
+                              </legend>
+
+                              <div class="mt-4 flex items-center gap-x-3">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke-width="1.5"
+                                  stroke="currentColor"
+                                  class="size-8 text-red-500"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
+                                  />
+                                </svg>
+                              </div>
+                            </fieldset>
+
+                            <!-- Sizes -->
+                            <fieldset class="mt-10" aria-label="Choose a size">
+                              <div class="flex items-center justify-between">
+                                <div class="text-sm font-medium text-gray-900">
+                                  Opções
+                                </div>
+                              </div>
+
+                              <div class="mt-4 grid grid-cols-3 gap-3">
+                                <!-- Active: "ring-2 ring-indigo-500" -->
+                                <label
+                                  class="option_label group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-2 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none active:ring-2 active:ring-gray-300 sm:flex-1"
+                                >
+                                  <input
+                                    type="radio"
+                                    name="size-choice"
+                                    value="XS"
+                                    class="sr-only option_input"
+                                  />
+                                  <span>Sem Chicote</span>
+                                  <!--
+                                    Active: "border", Not Active: "border-2"
+                                    Checked: "border-indigo-500", Not Checked: "border-transparent"
+                                  -->
+                                  <span
+                                    class="pointer-events-none absolute -inset-px rounded-md"
+                                    aria-hidden="true"
+                                  ></span>
+                                </label>
+                                <label
+                                  class="option_label group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-2 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none active:ring-2 active:ring-gray-300 sm:flex-1"
+                                >
+                                  <input
+                                    type="radio"
+                                    name="size-choice"
+                                    value="S"
+                                    class="sr-only option_input"
+                                  />
+                                  <span>Com Chicote 3m</span>
+                                  <span
+                                    class=" pointer-events-none absolute -inset-px rounded-md"
+                                    aria-hidden="true"
+                                  ></span>
+                                </label>
+                                <label
+                                  class="option_label group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-2 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none active:ring-2 active:ring-gray-300 sm:flex-1"
+                                >
+                                  <input
+                                    type="radio"
+                                    name="size-choice"
+                                    value="M"
+                                    class="sr-only option_input"
+                                  />
+                                  <span>Com Chicote 6m</span>
+                                  <span
+                                    class="pointer-events-none absolute -inset-px rounded-md"
+                                    aria-hidden="true"
+                                  ></span>
+                                </label>
+                              </div>
+                            </fieldset>
+
+                            <button 
+                              type="button" 
+                              onclick="addToCart(event)"
+                              data-product-name="FT600 SFI - Injeção Eletrônica Programável"
+                              data-product-price="13190.00"
+                              data-product-brand="FUELTECH"
+                              class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                              Adicionar ao Carrinho
+                            </button>
+                          </form>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="img_btn group relative cursor-pointer" data-brand="NOS" data-category="nitrous" data-price="5331.35" data-name="Cilindro de Oxido Nitroso 10lbs (4,5kg)">
+            <img
+              src="https://images.tcdn.com.br/img/img_prod/612077/cilindro_de_oxido_nitroso_10lbs_4_5kg_1802_1_20240129163957.jpg"
+              alt="Front of men&#039;s Basic Tee in black."
+              class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78"
+            />
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-sm text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    Cilindro de Oxido Nitroso 10lbs (4,5kg)
+                  </a>
+                </h3>
+                <div
+                  class="inline-block bg-blue-500 px-4 text-white text-xs font-semibold rounded-full uppercase tracking-wide"
+                >
+                  <span>NOS</span>
+                </div>
+              </div>
+              <p class="text-sm font-medium text-gray-900">R$ 5.331,35</p>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div
+            
+            class="modal relative z-10 hidden"
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              class="fixed inset-0 hidden bg-gray-500/75 transition-opacity md:block"
+              aria-hidden="true"
+            ></div>
+
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+              <div
+                class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4"
+              >
+                <div
+                  class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl"
+                >
+                  <div
+                    class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8"
+                  >
+                    <button
+                      type="button"
+                      class="close_modal_btn absolute right-4 top-20 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-20 md:right-6 md:top-10 lg:right-8 lg:top-8"
+                     
+                    >
+                      <span class="sr-only">Close</span>
+                      <svg
+                        class="size-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                        data-slot="icon"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18 18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+
+                    <div
+                      class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8"
+                    >
+                      <img
+                        src="https://images.tcdn.com.br/img/img_prod/612077/cilindro_de_oxido_nitroso_10lbs_4_5kg_1802_1_20240129163957.jpg"
+                        alt="Two each of gray, white, and black shirts arranged on table."
+                        class="aspect-[3/3] w-full rounded-lg bg-gray-100 object-cover sm:col-span-5 lg:col-span-5"
+                      />
+                      <div class="sm:col-span-8 lg:col-span-7">
+                        <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">
+                          Cilindro de Oxido Nitroso 10lbs (4,5kg)
+                        </h2>
+                        <div
+                          class="inline-block bg-blue-500 px-4 text-white text-xs font-semibold rounded-full uppercase tracking-wide"
+                        >
+                          <span>NOS</span>
+                        </div>
+                        <section
+                          aria-labelledby="information-heading"
+                          class="mt-2"
+                        >
+                          <h3 id="information-heading" class="sr-only">
+                            Product information
+                          </h3>
+                          <p class="text-2xl text-gray-900">R$ 5.331,35</p>
+                          <div class="mt-6">
+                            <h4 class="sr-only">Reviews</h4>
+                            <div class="flex items-center">
+                              <div class="flex items-center">
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-200"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                              </div>
+                              <p class="sr-only">4.9 out of 5 stars</p>
+                              <a
+                                href="#"
+                                class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                                >1.300 reviews</a
+                              >
+                            </div>
+                          </div>
+                        </section>
+
+                        <section
+                          aria-labelledby="options-heading"
+                          class="mt-10"
+                        >
+                          <h3 id="options-heading" class="sr-only">
+                            Opções de Produtos
+                          </h3>
+
+                          <form>
+                            <!-- Colors -->
+                            <fieldset aria-label="Choose a color">
+                              <legend class="text-sm font-medium text-gray-900">
+                                Cor
+                              </legend>
+
+                              <div class="mt-4 flex items-center gap-x-3">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke-width="1.5"
+                                  stroke="currentColor"
+                                  class="size-8 text-red-500"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
+                                  />
+                                </svg>
+                              </div>
+                            </fieldset>
+
+                            <button 
+                              type="button" 
+                              onclick="addToCart(event)"
+                              data-product-name="Cilindro de Oxido Nitroso 10lbs (4,5kg)"
+                              data-product-price="5331.35"
+                              data-product-brand="NOS"
+                              class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                              Adicionar ao Carrinho
+                            </button>
+                          </form>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="img_btn group relative cursor-pointer" data-brand="NOX" data-category="exhaust" data-price="499.00" data-name="Ponteira Esportiva Dupla Reta
+(3,5 Polegadas)">
+            <img
+              src="https://cf.shopee.com.br/file/7056bdd4bfee477ab33670a06e79f572"
+              alt="Front of men&#039;s Basic Tee in black."
+              class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78"
+            />
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-sm text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    Ponteira Esportiva Dupla Reta <br />(3,5 Polegadas)
+                  </a>
+                </h3>
+                <div
+                  class="inline-block bg-gray-300 px-4 text-black text-xs font-semibold rounded-full uppercase tracking-wide"
+                >
+                  <span>NOX</span>
+                </div>
+              </div>
+              <p class="text-sm font-medium text-gray-900">R$<br />499,00</p>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div
+            
+            class="modal relative z-10 hidden"
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              class="fixed inset-0 hidden bg-gray-500/75 transition-opacity md:block"
+              aria-hidden="true"
+            ></div>
+
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+              <div
+                class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4"
+              >
+                <div
+                  class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl"
+                >
+                  <div
+                    class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8"
+                  >
+                    <button
+                      type="button"
+                      class="close_modal_btn absolute right-4 top-20 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-20 md:right-6 md:top-10 lg:right-8 lg:top-8"
+                     
+                    >
+                      <span class="sr-only">Close</span>
+                      <svg
+                        class="size-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                        data-slot="icon"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18 18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+
+                    <div
+                      class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8"
+                    >
+                      <img
+                        src="https://cf.shopee.com.br/file/7056bdd4bfee477ab33670a06e79f572"
+                        alt=""
+                        class="aspect-[3/3] w-full rounded-lg bg-gray-100 object-cover sm:col-span-5 lg:col-span-5"
+                      />
+                      <div class="sm:col-span-8 lg:col-span-7">
+                        <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">
+                          Ponteira Esportiva Dupla Reta <br />(3,5 Polegadas)
+                        </h2>
+                        <div
+                          class="inline-block bg-gray-300 px-4 text-black text-xs font-semibold rounded-full uppercase tracking-wide"
+                        >
+                          <span>NOX</span>
+                        </div>
+                        <section
+                          aria-labelledby="information-heading"
+                          class="mt-2"
+                        >
+                          <h3 id="information-heading" class="sr-only">
+                            Informações
+                          </h3>
+                          <p class="text-2xl text-gray-900">R$ 499,00</p>
+                          <div class="mt-6">
+                            <h4 class="sr-only">Avaliações</h4>
+                            <div class="flex items-center">
+                              <div class="flex items-center">
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-200"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                              </div>
+                              <p class="sr-only">3.5 out of 5 stars</p>
+                              <a
+                                href="#"
+                                class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                                >540 reviews</a
+                              >
+                            </div>
+                          </div>
+                        </section>
+
+                        <section
+                          aria-labelledby="options-heading"
+                          class="mt-10"
+                        >
+                          <h3 id="options-heading" class="sr-only">
+                            Opções de produto
+                          </h3>
+
+                          <form>
+                            <!-- Colors -->
+                            <fieldset aria-label="Choose a color">
+                              <legend class="text-sm font-medium text-gray-900">
+                                Color
+                              </legend>
+
+                              <div class="mt-4 flex items-center gap-x-3">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke-width="1.5"
+                                  stroke="currentColor"
+                                  class="size-8 text-red-500"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
+                                  />
+                                </svg>
+                              </div>
+                            </fieldset>
+
+                            <button 
+                              type="button" 
+                              onclick="addToCart(event)"
+                              data-product-name="Ponteira Esportiva Dupla Reta (3,5 Polegadas)"
+                              data-product-price="499.00"
+                              data-product-brand="NOX"
+                              class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                              Adicionar ao Carrinho
+                            </button>
+                          </form>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="img_btn group relative cursor-pointer" data-brand="ENKEI" data-category="rim" data-price="3679.00" data-name="4 Rodas KR F1 Modelo RPF1
+(Aro 17)">
+            <img
+              src="https://http2.mlstatic.com/D_NQ_NP_674153-MLB75909400960_042024-O.webp"
+              alt="Front of men&#039;s Basic Tee in black."
+              class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-78"
+            />
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-sm text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    4 Rodas KR F1 Modelo RPF1<br />(Aro 17)
+                  </a>
+                </h3>
+                <div
+                  class="inline-block bg-yellow-400 px-4 text-black text-xs font-semibold rounded-full uppercase tracking-wide"
+                >
+                  <span>ENKEI</span>
+                </div>
+              </div>
+              <p class="text-sm font-medium text-gray-900">R$<br />3.679,00</p>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div
+            
+            class="modal relative z-10 hidden"
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              class="fixed inset-0 hidden bg-gray-500/75 transition-opacity md:block"
+              aria-hidden="true"
+            ></div>
+
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+              <div
+                class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4"
+              >
+                <div
+                  class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl"
+                >
+                  <div
+                    class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8"
+                  >
+                    <button
+                      type="button"
+                      class="close_modal_btn absolute right-4 top-20 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-20 md:right-6 md:top-10 lg:right-8 lg:top-8"
+                    
+                    >
+                      <span class="sr-only">Close</span>
+                      <svg
+                        class="size-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                        data-slot="icon"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18 18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+
+                    <div
+                      class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8"
+                    >
+                      <img
+                        src="https://http2.mlstatic.com/D_NQ_NP_674153-MLB75909400960_042024-O.webp"
+                        alt="Two each of gray, white, and black shirts arranged on table."
+                        class="aspect-[3/3] w-full rounded-lg bg-gray-100 object-cover sm:col-span-5 lg:col-span-5"
+                      />
+                      <div class="sm:col-span-8 lg:col-span-7">
+                        <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">
+                          4 Rodas KR F1 Modelo RPF1<br />(Aro 17)
+                        </h2>
+                        <div
+                          class="inline-block bg-yellow-400 px-4 text-black text-xs font-semibold rounded-full uppercase tracking-wide"
+                        >
+                          <span>ENKEI</span>
+                        </div>
+                        <section
+                          aria-labelledby="information-heading"
+                          class="mt-2"
+                        >
+                          <h3 id="information-heading" class="sr-only">
+                            Product information
+                          </h3>
+                          <p class="text-2xl text-gray-900">R$ 3.679,00</p>
+                          <div class="mt-6">
+                            <h4 class="sr-only">Reviews</h4>
+                            <div class="flex items-center">
+                              <div class="flex items-center">
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-900"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                                <svg
+                                  class="size-5 shrink-0 text-gray-200"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                  data-slot="icon"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                                    clip-rule="evenodd"
+                                  />
+                                </svg>
+                              </div>
+                              <p class="sr-only">3.9 out of 5 stars</p>
+                              <a
+                                href="#"
+                                class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                                >117 reviews</a
+                              >
+                            </div>
+                          </div>
+                        </section>
+
+                        <section
+                          aria-labelledby="options-heading"
+                          class="mt-10"
+                        >
+                          <h3 id="options-heading" class="sr-only">
+                            Product options
+                          </h3>
+
+                          <form>
+                            <!-- Colors -->
+                            <fieldset aria-label="Choose a color">
+                              <legend class="text-sm font-medium text-gray-900">
+                                Color
+                              </legend>
+
+                              <div class="mt-4 flex items-center gap-x-3">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke-width="1.5"
+                                  stroke="currentColor"
+                                  class="size-8 text-red-500"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
+                                  />
+                                </svg>
+                              </div>
+                            </fieldset>
+
+                            <!-- Sizes -->
+                            <fieldset class="mt-10" aria-label="Choose a size">
+                              <div class="flex items-center justify-between">
+                                <div class="text-sm font-medium text-gray-900">
+                                  Opções
+                                </div>
+                              </div>
+
+                              <div class="mt-4 grid grid-cols-3 gap-3">
+                                <!-- Active: "ring-2 ring-indigo-500" -->
+                                <label
+                                  class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-2 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1"
+                                >
+                                  <input
+                                    type="radio"
+                                    name="size-choice"
+                                    value="XS"
+                                    class="sr-only"
+                                  />
+                                  <span>Sem Chicote</span>
+                                  <!--
+                                    Active: "border", Not Active: "border-2"
+                                    Checked: "border-indigo-500", Not Checked: "border-transparent"
+                                  -->
+                                  <span
+                                    class="pointer-events-none absolute -inset-px rounded-md"
+                                    aria-hidden="true"
+                                  ></span>
+                                </label>
+                                <label
+                                  class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-2 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1"
+                                >
+                                  <input
+                                    type="radio"
+                                    name="size-choice"
+                                    value="S"
+                                    class="sr-only"
+                                  />
+                                  <span>Com Chicote 3m</span>
+                                  <span
+                                    class="pointer-events-none absolute -inset-px rounded-md"
+                                    aria-hidden="true"
+                                  ></span>
+                                </label>
+                                <label
+                                  class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-2 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1"
+                                >
+                                  <input
+                                    type="radio"
+                                    name="size-choice"
+                                    value="M"
+                                    class="sr-only"
+                                  />
+                                  <span>Com Chicote 6m</span>
+                                  <span
+                                    class="pointer-events-none absolute -inset-px rounded-md"
+                                    aria-hidden="true"
+                                  ></span>
+                                </label>
+                              </div>
+                            </fieldset>
+
+                            <button 
+                              type="button" 
+                              onclick="addToCart(event)"
+                              data-product-name="4 Rodas KR F1 Modelo RPF1 (Aro 17)"
+                              data-product-price="3679.00"
+                              data-product-brand="ENKEI"
+                              class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                              Adicionar ao Carrinho
+                            </button>
+                          </form>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>      
+    </div>
+  </div>
+  
+</body>
+</html>
