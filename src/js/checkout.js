@@ -23,11 +23,11 @@ orderItems.innerHTML = cart.map(item => `
 `).join('');
 }
 
-const TAX_RATE = 0.12; // 12%
+const TAX_RATE = 0.12;
 const FREE_SHIPPING_MIN = 1000;
 const SHIPPING_COST = 50;
 const VALID_COUPONS = {
-  'POWER10': 0.10 // 10% de desconto
+  'POWER10': 0.10
 };
 
 let appliedCoupon = null;
@@ -82,6 +82,21 @@ document.addEventListener('DOMContentLoaded', () => {
   calculateOrder();
 });
 
+function showNotification() {
+  const notification = document.getElementById('notification');
+  const progress = document.getElementById('progress');
+  
+  notification.classList.remove('hidden');
+  
+  setTimeout(() => {
+    progress.style.width = '0';
+  }, 50);
+  
+  setTimeout(() => {
+    notification.classList.add('hidden');
+    progress.style.width = 'full';
+  }, 3000);
+}
 
 window.addEventListener('cartUpdated', calculateOrder);
 window.addEventListener('cartUpdated', updateCheckoutSummary);
